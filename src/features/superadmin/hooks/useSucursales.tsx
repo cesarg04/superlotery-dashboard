@@ -3,9 +3,9 @@ import { baseApi } from "../../../api/apiSettings"
 import { Sucursales } from "../interfaces"
 
 
-export const getSucursales = async() => {
+export const getSucursales = async():Promise<Sucursales[]> => {
 
-    const { data } = await baseApi.get<Sucursales>('sucursales')
+    const { data } = await baseApi.get<Sucursales[]>('sucursales')
     return data
 
 }

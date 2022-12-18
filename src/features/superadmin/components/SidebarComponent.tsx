@@ -1,5 +1,6 @@
 import { Sidebar } from "flowbite-react"
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from 'react-icons/hi'
+import { Link } from "react-router-dom"
 
 
 export const SidebarComponent = () => {
@@ -8,12 +9,14 @@ export const SidebarComponent = () => {
             <Sidebar aria-label="Sidebar with multi-level dropdown example">
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
+                        <Link to={'/superadmin/zonas'}>
                         <Sidebar.Item
-                            href="#"
                             icon={HiChartPie}
                         >
-                            Dashboard
+                            Zonas
                         </Sidebar.Item>
+                        </Link>
+                        
                         <Sidebar.Collapse
                             icon={HiShoppingBag}
                             label="E-commerce"
@@ -22,12 +25,14 @@ export const SidebarComponent = () => {
                                 Products
                             </Sidebar.Item>
                         </Sidebar.Collapse>
+                        <Link to={'/superadmin/sucursales'}>
+                        
                         <Sidebar.Item
-                            href="#"
                             icon={HiInbox}
                         >
-                            Inbox
+                            Sucursales
                         </Sidebar.Item>
+                        </Link>
                         <Sidebar.Item
                             href="#"
                             icon={HiUser}

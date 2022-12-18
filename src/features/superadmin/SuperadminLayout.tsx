@@ -18,7 +18,7 @@ export const SuperadminLayout:FC = () => {
 
   console.log(isFetching);
   return (  
-    <div className="container mx-auto">
+    <div className="container mx-auto dark:bg-dark h-screen">
     <header className="pb-4 py-3 w-full">
       <NavbarComponent toggle={(event) => setToggle(event)} />
     </header>
@@ -26,9 +26,9 @@ export const SuperadminLayout:FC = () => {
       <aside className={`py-2 px-1 ease-in-out duration-300 md:block ${toggleSidebar ? 'translate-x-0 block' : 'translate-x-full hidden'}`}>
         <SidebarComponent/>
         </aside>
-      <main className="w-full">
+      <main className="w-full px-10">
         {
-          // isFetching > 0 && <IsLoadingComponent/>
+          // isFetching > 0 && <IsLoadingComponent/>  
         }
         <Outlet/>
       </main>

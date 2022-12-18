@@ -1,4 +1,4 @@
-import { Home, Sucursales } from "../pages"
+import { Home, Sucursales, Zonas } from "../pages"
 
 
 export default {
@@ -11,5 +11,9 @@ export default {
             path: 'sucursales',
             element: <Sucursales/>
         },
+        {
+            path: 'zonas',
+            element: <Zonas/>
+        }
     ]
 }

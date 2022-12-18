@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* font-family: 'Nunito', sans-serif; */
+/* font-family: 'Raleway', sans-serif; */
+
+
+h1{
+    @apply font-title
+}
+
+p, span, h5{
+    @apply font-content
+}
+
+.numbers{
+
+    @apply bg-gray-500 rounded-full p-4 text-white text-xl
+
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 3px solid var(--primary);
+}
