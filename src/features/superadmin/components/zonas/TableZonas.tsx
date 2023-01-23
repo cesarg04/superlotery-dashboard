@@ -1,5 +1,6 @@
-import { Table } from "flowbite-react"
+import { Table, TextInput } from "flowbite-react"
 import { useZonas } from "../../hooks/useZonas";
+import { parseMoney } from "../../../../helpers/parseMoney";
 
 export const TableZonas = () => {
 
@@ -26,9 +27,9 @@ export const TableZonas = () => {
                     Tipo de moneda
                 </Table.HeadCell>
                 <Table.HeadCell>
-                    <span className="sr-only">
-                        Edit
-                    </span>
+                    <TextInput
+                        type={'text'}
+                        placeholder='Buscar'/>
                 </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
@@ -46,7 +47,7 @@ export const TableZonas = () => {
                                 {data?.provincia}
                             </Table.Cell>
                             <Table.Cell>
-                                {data?.limites}
+                                { parseMoney(Number(data.limites)) }
                             </Table.Cell>
                             <Table.Cell>
                                 {data?.tipo_moneda}

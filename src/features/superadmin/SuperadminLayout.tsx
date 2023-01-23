@@ -8,15 +8,13 @@ import { SidebarComponent } from "./components/SidebarComponent"
 
 
 export const SuperadminLayout:FC = () => {
-  const isFetching  = useIsFetching();
+  // const isFetching  = useIsFetching();
   const [toggleSidebar, setToggleSidebar] = useState<boolean>(true);
 
   const setToggle = (event:boolean) => {
     setToggleSidebar(event)
     return event
   } 
-
-  console.log(isFetching);
   return (  
     <div className="container mx-auto dark:bg-dark h-screen">
     <header className="pb-4 py-3 w-full">

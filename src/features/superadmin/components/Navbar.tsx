@@ -2,6 +2,7 @@ import { Avatar, DarkThemeToggle, Dropdown, Navbar, useTheme, useThemeMode } fro
 import { FC, useState } from "react"
 import { HiMenu } from "react-icons/hi"
 import { useNavigate } from "react-router-dom"
+import { DropdownComponent } from "./Dropdown"
 
 
 interface Props{
@@ -50,33 +51,7 @@ export const NavbarComponent:FC<Props> = ({toggle}) => {
 
                 <DarkThemeToggle onClick={setMode}/>
 
-                <Dropdown
-                    arrowIcon={false}
-                    inline={true}
-                    label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true} />}
-                >
-                    <Dropdown.Header>
-                        <span className="block text-sm">
-                            Bonnie Green
-                        </span>
-                        <span className="block truncate text-sm font-medium">
-                            name@flowbite.com
-                        </span>
-                    </Dropdown.Header>
-                    <Dropdown.Item>
-                        Dashboard
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                        Settings
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                        Earnings
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item>
-                        Sign out
-                    </Dropdown.Item>
-                </Dropdown>
+               <DropdownComponent/>
                 
             </div>
         </nav>
