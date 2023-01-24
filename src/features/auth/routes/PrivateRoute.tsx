@@ -1,4 +1,6 @@
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useContext"
+import { IsLoadingComponent } from "../../../components/isLoading";
 
 export const PrivateRoute = () => {
     
@@ -6,12 +8,13 @@ export const PrivateRoute = () => {
 
     switch (stateAuth.status) {
         case 'autenticated':
+            return <Navigate to={'/superadmin'} />
             
-            break;
-    
-        default:
-            break;
-    }
+        case 'loading':
+            return <IsLoadingComponent/>
 
+        case 'not-autenticated':
+            return <Outlet/>
+    }
 
 }

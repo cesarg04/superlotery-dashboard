@@ -33,12 +33,17 @@ export const SidebarComponent = () => {
                             Sucursales
                         </Sidebar.Item>
                         </Link>
+
+                        <Link to={'/superadmin/loterias'} >
                         <Sidebar.Item
                             href="#"
                             icon={HiUser}
                         >
-                            Users
+                            Loterias
                         </Sidebar.Item>
+                        
+                        
+                        </Link>
                         <Sidebar.Item
                             href="#"
                             icon={HiShoppingBag}

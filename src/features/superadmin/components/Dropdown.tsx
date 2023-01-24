@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom"
 
 export const DropdownComponent = () => {
 
-    const { signOut } = useAuthContext()
+    const { signOut, stateAuth } = useAuthContext();
 
-    const navigate =  useNavigate()
+    const navigate =  useNavigate();
 
     const Signut = async() => {
 
@@ -30,15 +30,15 @@ export const DropdownComponent = () => {
         >
             <Dropdown.Header>
                 <span className="block text-sm">
-                    Bonnie Green
+                    { stateAuth.user?.name }
                 </span>
                 <span className="block truncate text-sm font-medium">
-                    name@flowbite.com
+                    { stateAuth.user?.email }
                 </span>
             </Dropdown.Header>
             <Dropdown.Item>
                 Dashboard
-            </Dropdown.Item>S
+            </Dropdown.Item>
             <Dropdown.Item>
                 Settings
             </Dropdown.Item>

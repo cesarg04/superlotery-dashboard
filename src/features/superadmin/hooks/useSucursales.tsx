@@ -10,7 +10,6 @@ export const getSucursales = async():Promise<Sucursales[]> => {
 
 }
 
-
 export const useSucursales = () => {
 
     const getAllSucursales = useQuery(
