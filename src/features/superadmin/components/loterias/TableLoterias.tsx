@@ -1,10 +1,12 @@
 import { Table, TextInput } from "flowbite-react"
 import { useLoterias } from "../../hooks/useLoterias"
+import { useAuthContext } from "../../../../hooks/useContext"
 
 export const TableLoterias = () => {
 
-    const { getAllLoteries } = useLoterias()
+    const { stateAuth } = useAuthContext()
 
+    const { getAllLoteries } = useLoterias( stateAuth.token || '' )
 
     return (
         <>

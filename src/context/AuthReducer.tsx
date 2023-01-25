@@ -3,7 +3,7 @@ import { LoginSuperadmin, User } from '../features/auth/interfaces/index'
 
 type Actions = 
 { type: 'signIn', payload: LoginSuperadmin}
-| { type: 'refreshStatus', payload: { user: User }}
+| { type: 'refreshStatus', payload: { user: User, token: string | null}}
 | { type: 'changeLoadingStatus', payload: 'autenticated' | 'not-autenticated' | 'loading'}
 | { type: 'signOut' }
 // | { type: 'username-put', payload: string }
@@ -25,7 +25,8 @@ export const AuthReducer = (state: AuthStateInterface, action: Actions ): AuthSt
         case 'refreshStatus': 
             return{
                 ...state,
-                user: action.payload.user
+                user: action.payload.user,
+                token: action.payload.token || ''
             }
     
         case 'changeLoadingStatus':
@@ -35,7 +36,12 @@ export const AuthReducer = (state: AuthStateInterface, action: Actions ): AuthSt
             }
 
         case 'signOut':
-            return state
+            return {
+                ...state,
+                status: 'not-autenticated',
+                user: undefined,
+                token: undefined
+            }
 
         default:
             return state;

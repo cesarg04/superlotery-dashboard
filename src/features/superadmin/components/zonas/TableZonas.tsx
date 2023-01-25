@@ -1,12 +1,12 @@
 import { Table, TextInput } from "flowbite-react"
 import { useZonas } from "../../hooks/useZonas";
 import { parseMoney } from "../../../../helpers/parseMoney";
+import { useAuthContext } from "../../../../hooks/useContext";
 
 export const TableZonas = () => {
 
-    const { zonasQuery } = useZonas();
-
-
+    const { stateAuth } = useAuthContext()
+    const { zonasQuery } = useZonas(stateAuth.token || '');
 
     return (
         <Table striped={true}>

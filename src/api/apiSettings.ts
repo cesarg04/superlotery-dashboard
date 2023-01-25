@@ -2,10 +2,25 @@ import axios from "axios"
 
 const url = import.meta.env.VITE_HOST
 
-const token = sessionStorage.getItem('token')
+// const token = sessionStorage.getItem('token')
 
-export const baseApi = axios.create({
-    baseURL: url,
-    headers: { Authorization: `Bearer ${token}` }
-})
+// console.log(token)
+
+export const baseApI = ( token?: string ) => {
+
+    const baseURL = axios.create({
+        baseURL: url,
+        headers: { 
+            Authorization: `Bearer ${token}`,  
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        }
+    })
+
+
+    return {
+        baseURL
+    }
+}
+
 

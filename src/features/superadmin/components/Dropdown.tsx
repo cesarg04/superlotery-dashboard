@@ -1,5 +1,5 @@
 import { Avatar, Dropdown } from "flowbite-react"
-import { baseApi } from "../../../api/apiSettings"
+import { baseApI } from "../../../api/apiSettings"
 import { useAuthContext } from "../../../hooks/useContext"
 import { useNavigate } from "react-router-dom"
 
@@ -7,12 +7,14 @@ export const DropdownComponent = () => {
 
     const { signOut, stateAuth } = useAuthContext();
 
+    const { baseURL } = baseApI(stateAuth.token)
+
     const navigate =  useNavigate();
 
     const Signut = async() => {
 
         try {
-            await baseApi.get('logout')
+            await baseURL.get('logout')
             signOut()
             navigate('/auth')
         } catch (error) {

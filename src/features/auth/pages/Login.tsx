@@ -3,15 +3,16 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react"
 import { Inputs, LoginSuperadmin } from '../interfaces'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../../hooks/useContext'
-import { baseApi } from '../../../api/apiSettings'
+import { baseApI } from '../../../api/apiSettings'
 import { AiOutlineWarning } from 'react-icons/ai'
 
 
 
 export const LoginPage = () => {
 
-    const { signIn, statusUpdate } = useAuthContext()
+    const { signIn, statusUpdate, stateAuth } = useAuthContext()
 
+    const { baseURL } = baseApI(stateAuth.token)
     const navigate = useNavigate()
 
     const { register, handleSubmit, watch, formState: { errors }, setError } = useForm<Inputs>()
@@ -21,7 +22,7 @@ export const LoginPage = () => {
         try {
 
             statusUpdate({ status: 'loading' })
-            const { data } = await baseApi.post<LoginSuperadmin>('login', { ...loginData })
+            const { data } = await baseURL.post<LoginSuperadmin>('login', { ...loginData })
             signIn(data)
             navigate('/superadmin')
         } catch (err: any) {
@@ -31,6 +32,7 @@ export const LoginPage = () => {
                 type: 'manual',
                 message: err.response.data.msg
             })
+            statusUpdate({ status: 'not-autenticated' })
         }
 
 
@@ -88,7 +90,7 @@ export const LoginPage = () => {
 
                     {errors.email &&
                         <>
-                            <AiOutlineWarning className='text-red-500 text-xl mx-2'/>
+                            <AiOutlineWarning className='text-red-500 text-xl mx-2' />
                             <p
                                 className='text-red-500 
                         text-center text-xl 

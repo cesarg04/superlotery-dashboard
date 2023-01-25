@@ -1,6 +1,6 @@
 import { FC, createContext, useEffect, useReducer, useState } from 'react';
 import { LoginSuperadmin, Status, User } from '../features/auth/interfaces';
-import { baseApi } from '../api/apiSettings';
+import { baseApI } from '../api/apiSettings';
 import { AuthReducer } from './AuthReducer';
 
 interface Contextprops {
@@ -32,6 +32,9 @@ export const AuthState: AuthStateInterface = {
 
 export const AuthProvider: FC<Props> = ({ children }) => {
 
+    
+    const { baseURL } = baseApI(AuthState.token!)
+
     const [stateAuth, dispatch] = useReducer(AuthReducer, AuthState)
     
 
@@ -60,11 +63,10 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
                 const token = sessionStorage.getItem('token')
 
-                const { data } = await baseApi.get<User>('auth/user', {
+                const { data } = await baseURL.get<User>('auth/user', {
                     headers: { Authorization: `Bearer ${token}` }
                 })
-                console.log(data)
-                dispatch({ type: 'refreshStatus', payload: {user: data} })
+                dispatch({ type: 'refreshStatus', payload: {user: data, token: token} })
                 dispatch({ type: 'changeLoadingStatus', payload: 'autenticated' })
 
             } catch (error) {

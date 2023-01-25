@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query"
-import { baseApi } from "../../../api/apiSettings"
+import { baseApI } from "../../../api/apiSettings"
 import { Zonas } from "../interfaces"
 
-export const getAllZonas = async() => {
+export const getAllZonas = async( token: string ) => {
 
-    const { data } = await baseApi.get<Zonas[]>('zonas')
-
+    const { baseURL } = baseApI(token)
+    const { data } = await baseURL.get<Zonas[]>('zonas')
     return data
 }
 
 
-export const useZonas = () => {
+export const useZonas = ( token: string ) => {
 
     const zonasQuery = useQuery(
         ['zonas'],
-        getAllZonas
+        () => getAllZonas(token)
     )
 
     return{

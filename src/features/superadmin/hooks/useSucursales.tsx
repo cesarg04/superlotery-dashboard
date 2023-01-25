@@ -1,20 +1,21 @@
 import { useQuery } from "@tanstack/react-query"
-import { baseApi } from "../../../api/apiSettings"
+import { baseApI } from "../../../api/apiSettings"
 import { Sucursales } from "../interfaces"
 
 
-export const getSucursales = async():Promise<Sucursales[]> => {
+export const getSucursales = async(token: string):Promise<Sucursales[]> => {
 
-    const { data } = await baseApi.get<Sucursales[]>('sucursales')
+    const { baseURL } = baseApI(token)
+    const { data } = await baseURL.get<Sucursales[]>('sucursales')
     return data
 
 }
 
-export const useSucursales = () => {
+export const useSucursales = (token: string) => {
 
     const getAllSucursales = useQuery(
         ['sucursales'],
-        () => getSucursales()
+        () => getSucursales( token )
     )
 
     return {

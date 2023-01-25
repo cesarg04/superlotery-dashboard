@@ -1,11 +1,14 @@
 import { Table, TextInput } from "flowbite-react"
 import { useSucursales } from "../../hooks/useSucursales"
 import { useParseDate } from "../../../../hooks/useDateParse"
+import { useAuthContext } from "../../../../hooks/useContext"
 
 
 export const TableSucursales = () => {
 
-    const { getAllSucursales } = useSucursales()
+    const { stateAuth } = useAuthContext()
+
+    const { getAllSucursales } = useSucursales(stateAuth.token!)
 
     return (
         <>

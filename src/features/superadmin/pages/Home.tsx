@@ -3,12 +3,13 @@ import { SiHomeassistantcommunitystore } from 'react-icons/si'
 import { FaRoute } from 'react-icons/fa'
 import { CardsHome, Lotery } from "../components"
 import { TextInput } from "flowbite-react"
+import { useAuthContext } from "../../../hooks/useContext"
 
 
 export const Home = () => {
 
-    const { getAllSucursales } = useSucursales()
-
+    const { stateAuth } = useAuthContext()
+    const { getAllSucursales } = useSucursales(stateAuth.token || '')
 
     return (
         <div className="w-full dark:bg-dark">

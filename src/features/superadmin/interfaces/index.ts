@@ -66,3 +66,11 @@ export interface LoteriesInputs{
     cierre_sabado:      string;
     cierre_domingo:     string;
 }
+
+export interface Sucursalinputs{
+    nombre:         string;
+    direccion:      string;
+    tipo:           string;
+    correo:         string;
+    contraseña:     string
+}
