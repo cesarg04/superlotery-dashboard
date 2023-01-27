@@ -1,12 +1,18 @@
-import { Table, TextInput } from "flowbite-react"
+import { useState } from 'react'
+import { Badge, Table, TextInput } from "flowbite-react"
 import { useLoterias } from "../../hooks/useLoterias"
 import { useAuthContext } from "../../../../hooks/useContext"
 
 export const TableLoterias = () => {
-
+    const [find, setFind] = useState('')
     const { stateAuth } = useAuthContext()
 
-    const { getAllLoteries } = useLoterias( stateAuth.token || '' )
+    const { getAllLoteries } = useLoterias(stateAuth.token || '')
+
+
+    const onChangeFind = ( val: string ) => {
+        setFind( val )
+    }
 
     return (
         <>
@@ -30,34 +36,41 @@ export const TableLoterias = () => {
                     <Table.HeadCell>
                         <TextInput
                             type={'text'}
-                            placeholder='Buscar' />
+                            placeholder='Buscar' 
+                            value={ find }
+                            onChange={ ({ target }) => onChangeFind( target.value ) } />
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
-                        getAllLoteries.data?.map(loterie => (
+                        getAllLoteries.data?.filter((e) => e.nombre.toLocaleLowerCase().includes( find )).map(loterie => (
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={loterie.id}>
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                {loterie?.id}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {loterie?.nombre}
-                            </Table.Cell>
-                            <Table.Cell>    
-                                {loterie.abreviatura}
-                            </Table.Cell>
-                            <Table.Cell>
-                                { (loterie.estado === 1) ? 'Activo' : 'Inactivo' }
-                            </Table.Cell>
-                            <Table.Cell>
-                                <a
-                                    href="/tables"
-                                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                >
-                                    Edit
-                                </a>
-                            </Table.Cell>
-                        </Table.Row>
+                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    {loterie?.id}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {loterie?.nombre}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {loterie.abreviatura}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {(loterie.estado === 1) ?
+                                        <Badge color="success" size="sm" >Activa</Badge>
+                                        : <Badge color="warning" size="sm">Inactiva</Badge>}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <br />
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <a
+                                        href="/tables"
+                                        className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                                    >
+                                        Edit
+                                    </a>
+                                </Table.Cell>
+                            </Table.Row>
                         ))
                     }
                 </Table.Body>

@@ -1,8 +1,9 @@
-import { FC, useState } from 'react'
-import { Button, Label, Modal, Select, Spinner, TextInput } from "flowbite-react"
+import { FC, useEffect } from 'react'
+import { Button, Modal, Spinner, TextInput } from "flowbite-react"
 import { AiOutlineWarning } from 'react-icons/ai'
 import { useAddEditSucursal } from '../../hooks/useAddEditSucursal'
-import { ToastComponent } from '../ToastSuccess'
+import { Toaster } from 'react-hot-toast'
+
 
 interface Props {
     visible: boolean,
@@ -12,8 +13,6 @@ interface Props {
 export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
 
 
-    const [showToast, setshowToast] = useState(true);
-
     const { register,
         handleSubmit,
         watch,
@@ -21,8 +20,8 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
         errors,
         onSubmit,
         emailRegex,
-        isLoading }
-        = useAddEditSucursal()
+        mutation }
+        = useAddEditSucursal()        
 
     const onClick = () => {
         onClose(!visible)
@@ -97,10 +96,10 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
                         <Button
                             type='submit'
                             className='w-3/6 font-bold text-3xl'
-                            disabled={isLoading} >
+                            disabled={mutation.isLoading} >
 
                             {
-                                isLoading && <div className="mr-3">
+                                mutation.isLoading && <div className="mr-3">
                                     <Spinner
                                         size="sm"
                                         light={true}
@@ -119,7 +118,7 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
 
             </Modal>
 
-            <ToastComponent show={ showToast } type='success' message='Componente creado con exito' />
+            <Toaster/>
         </>
     )
 }

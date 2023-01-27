@@ -74,3 +74,15 @@ export interface Sucursalinputs{
     correo:         string;
     contraseña:     string
 }
+
+export interface ZonasInputs{
+    nombre:             string;
+    pais:               string;
+    provincia:          string;
+    tipo_moneda:        string;
+    valor_moneda_pesos: string;
+    limites:            string;
+    estado_limite:      string;
+    sucursal_id:        string; 
+    
+}

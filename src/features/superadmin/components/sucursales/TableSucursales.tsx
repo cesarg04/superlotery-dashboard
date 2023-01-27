@@ -2,13 +2,21 @@ import { Table, TextInput } from "flowbite-react"
 import { useSucursales } from "../../hooks/useSucursales"
 import { useParseDate } from "../../../../hooks/useDateParse"
 import { useAuthContext } from "../../../../hooks/useContext"
+import { useState } from "react"
 
 
 export const TableSucursales = () => {
 
-    const { stateAuth } = useAuthContext()
+    const { stateAuth } = useAuthContext()  
 
     const { getAllSucursales } = useSucursales(stateAuth.token!)
+
+    const [find, setFind] = useState('')
+
+
+    const onChangeFind = (val: string) => {
+        setFind( val )
+    }
 
     return (
         <>
@@ -32,12 +40,14 @@ export const TableSucursales = () => {
                     <Table.HeadCell>
                         <TextInput 
                             type={'text'}
-                            placeholder='Buscar'/>
+                            placeholder='Buscar'
+                            value={ find }
+                            onChange={ ({ target }) => onChangeFind(target.value) } />
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
-                        getAllSucursales.data?.map(sucursal => (
+                        getAllSucursales.data?.filter((e) =>e.nombre.toLocaleLowerCase().includes(find) ).map(sucursal => (
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={sucursal.id}>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {sucursal?.id}

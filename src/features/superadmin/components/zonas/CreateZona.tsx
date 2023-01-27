@@ -1,18 +1,31 @@
-import { Button, Label, Modal, Select, TextInput } from "flowbite-react"
+import { Button, Label, Modal, Select, Spinner, TextInput } from "flowbite-react"
 import { FC } from "react"
+import { useAddEditZonas } from "../../hooks/useAddEditZonas"
+import { Toaster } from "react-hot-toast"
 
 
-interface Props{
+interface Props {
     visible: boolean
     onClose: (event: boolean) => any
 
 }
 
-export const CreateZona:FC<Props> = ({ visible, onClose }) => {
+export const CreateZona: FC<Props> = ({ visible, onClose }) => {
+
+    const { register,
+        handleSubmit,
+        errors,
+        reset,
+        onSubmit,
+        getAllSucursales,
+        mutation } = useAddEditZonas();
 
     const onClick = () => {
         onClose(!visible)
     }
+
+
+
     return (
         <Modal
             show={visible}
@@ -21,21 +34,23 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
             <Modal.Header>
                 Crear zona
             </Modal.Header>
-            <form action="">
+            <form onSubmit={handleSubmit(onSubmit)} >
                 <Modal.Body className="">
-
 
                     <div className="space-y-6">
                         <div className="w-full flex justify-between gap-4">
                             <TextInput
                                 placeholder="Nombre"
                                 required
-                                className="w-3/6" />
+                                className="w-3/6"
+                                {...register('nombre')}
+                            />
 
                             <TextInput
                                 placeholder="Pais"
                                 required
-                                className="w-3/6" />
+                                className="w-3/6"
+                                {...register('pais')} />
 
                         </div>
 
@@ -43,14 +58,16 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
                             <TextInput
                                 placeholder="Provincia"
                                 required
-                                className="w-3/6" />
+                                className="w-3/6"
+                                {...register('provincia')} />
 
 
                             <TextInput
                                 placeholder="Limite"
                                 type={'number'}
                                 required
-                                className="w-3/6" />
+                                className="w-3/6"
+                                {...register('limites')} />
 
                         </div>
 
@@ -66,6 +83,7 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
                                     />
                                 </div>
                                 <Select
+                                    {...register('tipo_moneda')}
                                     id="peso"
                                     required={true}
                                 >
@@ -90,16 +108,19 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
                                 <Select
                                     id="sucursal"
                                     required={true}
+                                    defaultValue={'Seleccione una sucursal'}
+                                    {...register('sucursal_id')}
                                 >
-                                    <option>
-                                        USD
-                                    </option>
-                                    <option>
-                                        DOP
-                                    </option>
-                                    <option>
-                                        HTG
-                                    </option>
+                                    {
+                                        getAllSucursales.data?.map((suc) => (
+                                            <option
+                                                value={suc.id}
+                                                key={suc.id} >
+                                                {suc.nombre}
+                                            </option>
+
+                                        ))
+                                    }
                                 </Select>
                             </div>
                         </div>
@@ -111,7 +132,16 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
                 <Modal.Footer className="justify-center">
                     <Button
                         type='submit'
-                        className='w-3/6 font-bold text-3xl'>
+                        className='w-3/6 font-bold text-3xl'
+                        disabled={ mutation.isLoading }>
+                        {
+                            mutation.isLoading && <div className="mr-3">
+                                <Spinner
+                                    size="sm"
+                                    light={true}
+                                />
+                            </div>
+                        }
                         Crear
                     </Button>
 
@@ -120,7 +150,7 @@ export const CreateZona:FC<Props> = ({ visible, onClose }) => {
             </form>
 
 
-
+                        <Toaster/>
         </Modal>
     )
 }

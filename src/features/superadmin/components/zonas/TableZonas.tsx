@@ -1,12 +1,19 @@
-import { Table, TextInput } from "flowbite-react"
+import { useState } from 'react';
+import { Table, TextInput } from "flowbite-react";
 import { useZonas } from "../../hooks/useZonas";
 import { parseMoney } from "../../../../helpers/parseMoney";
 import { useAuthContext } from "../../../../hooks/useContext";
 
 export const TableZonas = () => {
 
+    const [find, setFind] = useState('')
     const { stateAuth } = useAuthContext()
     const { zonasQuery } = useZonas(stateAuth.token || '');
+
+    const onChangeInput = ( val: string ) => {
+
+        setFind( val )
+    }
 
     return (
         <Table striped={true}>
@@ -29,13 +36,16 @@ export const TableZonas = () => {
                 <Table.HeadCell>
                     <TextInput
                         type={'text'}
-                        placeholder='Buscar'/>
+                        placeholder='Buscar'
+                        value={ find }
+                        onChange={ ({ target }) => onChangeInput(target.value) }
+                        />
                 </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
 
                 {
-                    zonasQuery.data?.map(data => (
+                    zonasQuery.data?.filter((e) => e.nombre.toLocaleLowerCase().includes(find)).map(data => (
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={data.id}>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {data?.id}
