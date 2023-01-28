@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../../hooks/useContext'
 import { baseApI } from '../../../api/apiSettings'
 import { AiOutlineWarning } from 'react-icons/ai'
+import { Toaster, toast } from 'react-hot-toast'
 
 
 
@@ -33,6 +34,10 @@ export const LoginPage = () => {
                 message: err.response.data.msg
             })
             statusUpdate({ status: 'not-autenticated' })
+            toast.error(`${ err.respnse.data.msg }`, {
+                duration: 5000,
+                position: 'top-right'
+            })
         }
 
 
@@ -105,6 +110,7 @@ export const LoginPage = () => {
                 </div>
             </form>
 
+                    <Toaster/>
         </div>
 
     )

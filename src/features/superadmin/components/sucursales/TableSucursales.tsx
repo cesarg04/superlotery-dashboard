@@ -1,18 +1,31 @@
-import { Table, TextInput } from "flowbite-react"
+import { Button, Table, TextInput } from "flowbite-react"
 import { useSucursales } from "../../hooks/useSucursales"
 import { useParseDate } from "../../../../hooks/useDateParse"
 import { useAuthContext } from "../../../../hooks/useContext"
 import { useState } from "react"
+import { Sucursales, Sucursalinputs } from "../../interfaces"
+import { CreateSucursal } from "./CreateSucursal"
 
 
 export const TableSucursales = () => {
-
-    const { stateAuth } = useAuthContext()  
-
-    const { getAllSucursales } = useSucursales(stateAuth.token!)
-
+    const [dataEdit, setdataEdit] = useState<Sucursalinputs>()
+    const [visibleEdit, setvisibleEdit] = useState(false)
     const [find, setFind] = useState('')
+    const { stateAuth } = useAuthContext()  
+    const { getAllSucursales } = useSucursales(stateAuth.token!)
+    
+    
+    const onClose = (event: boolean) => {
+        setvisibleEdit(event)
+    }
 
+    // const replaceValues = ( data: Sucursales ) => {
+    //     setdataEdit({
+    //         nombre: data.nombre,
+    //         direccion: data.direccion,
+    //         correo: 
+    //     })
+    // }
 
     const onChangeFind = (val: string) => {
         setFind( val )
@@ -65,18 +78,22 @@ export const TableSucursales = () => {
                                 {useParseDate(sucursal.created_at)}
                             </Table.Cell>
                             <Table.Cell>
-                                <a
-                                    href="/tables"
-                                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                >
-                                    Edit
-                                </a>
+                                <Button 
+                                color={'success'}
+                                 >
+                                    Editar
+                                </Button>
                             </Table.Cell>
                         </Table.Row>
                         ))
                     }
                 </Table.Body>
             </Table>
+            <CreateSucursal 
+                visible={ visibleEdit }
+                onClose={ (event) => onClose(event) }
+                mode="edit"
+                {...dataEdit} />
         </>
     )
 }

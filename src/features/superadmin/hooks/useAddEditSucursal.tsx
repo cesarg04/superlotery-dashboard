@@ -38,11 +38,38 @@ export const useAddEditSucursal = () => {
     })
 
 
+    const editMutation = useMutation({
+        mutationFn: (newTodo: Sucursalinputs) => {
+            return baseURL.put('sucursales', newTodo);
+        },
+        onSuccess: ( data ) => {
+            reset()
+            toast.success('Sucursal actualizada con exito', {
+                duration: 4000,
+                position: 'top-right'
+            })
+        },
+        onError: ( error ) => {
+            toast.error('Error al actualizar la sucursal, intente de nuevo', {
+                duration: 4000,
+                position: 'top-right'
+            })
+
+        }
+    })
+
+
     const onSubmit: SubmitHandler<Sucursalinputs> = async (sucursalesData) => {
 
         mutation.mutate(sucursalesData)
         
     }
+
+    const onEdit: SubmitHandler<Sucursalinputs> = (sucursalesData) => {
+
+        editMutation.mutate(sucursalesData)
+    } 
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
     return {
@@ -53,6 +80,8 @@ export const useAddEditSucursal = () => {
         errors,
         onSubmit,
         emailRegex,
-        mutation
+        mutation,
+        editMutation,
+        onEdit
     }
 }

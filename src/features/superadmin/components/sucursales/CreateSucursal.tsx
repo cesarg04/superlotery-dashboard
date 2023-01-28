@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Button, Modal, Spinner, TextInput } from "flowbite-react"
 import { AiOutlineWarning } from 'react-icons/ai'
 import { useAddEditSucursal } from '../../hooks/useAddEditSucursal'
@@ -7,10 +7,18 @@ import { Toaster } from 'react-hot-toast'
 
 interface Props {
     visible: boolean,
-    onClose: (event: boolean) => any
+    onClose: (event: boolean) => any;
+    mode: 'add' | 'edit';
+    nombre?: string;
+    direccion?: string;
+    tipo?: string;
+    correo?: string;
+    contraseña?: string;
+
+
 }
 
-export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
+export const CreateSucursal: FC<Props> = (props) => {
 
 
     const { register,
@@ -20,11 +28,12 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
         errors,
         onSubmit,
         emailRegex,
-        mutation }
+        mutation,
+        onEdit }
         = useAddEditSucursal()        
 
     const onClick = () => {
-        onClose(!visible)
+        props.onClose(!props.visible)
     }
 
 
@@ -33,19 +42,24 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
 
         <>
             <Modal
-                show={visible}
+                show={props.visible}
                 size="md"
                 onClose={onClick}>
                 <Modal.Header>
                     Crear Sucursal
                 </Modal.Header>
-                <form onSubmit={handleSubmit(onSubmit)} >
+                <form onSubmit={ 
+                        props.mode === 'add' 
+                        ? handleSubmit(onSubmit)
+                        : handleSubmit(onEdit)
+                        } >
                     <Modal.Body className="">
                         <TextInput
                             placeholder="Nombre"
                             required
                             className="my-3"
                             {...register('nombre', { required: true })}
+                            defaultValue={props.nombre}
                             color={!!errors.nombre ? 'failure' : ''}
                             helperText={!!errors.nombre && <p>El nombre es requerido...</p>} />
 
@@ -53,16 +67,19 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
                             placeholder="Direccion"
                             required
                             className="my-3"
+                            defaultValue={props.direccion}
                             {...register('direccion', { required: true })} />
                         <TextInput
                             placeholder="Tipo de sucursal"
                             required
+                            defaultValue={props.tipo}
                             className="my-3"
                             {...register('tipo', { required: true })} />
 
                         <TextInput
                             placeholder="Correo"
                             required
+                            defaultValue={props.correo}
                             className="my-3"
                             type={'email'}
                             {...register('correo', {
@@ -78,6 +95,7 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
                             required
                             className="my-3"
                             type={'password'}
+                            defaultValue={props.contraseña}
                             {...register('contraseña', { minLength: 8 })}
                             color={!!errors.contraseña ? 'failure' : 'primary'}
                         // helperText={ !!errors.contraseña  }
@@ -93,22 +111,44 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
                         }
                     </Modal.Body>
                     <Modal.Footer className="justify-center">
-                        <Button
-                            type='submit'
-                            className='w-3/6 font-bold text-3xl'
-                            disabled={mutation.isLoading} >
 
-                            {
-                                mutation.isLoading && <div className="mr-3">
-                                    <Spinner
-                                        size="sm"
-                                        light={true}
-                                    />
-                                </div>
-                            }
+                        {
+                            props.mode === 'add' ?
+                            <Button
+                                type='submit'
+                                className='w-3/6 font-bold text-3xl'
+                                disabled={mutation.isLoading} >
 
-                            Crear
-                        </Button>
+                                {
+                                    mutation.isLoading && <div className="mr-3">
+                                        <Spinner
+                                            size="sm"
+                                            light={true}
+                                        />
+                                    </div>
+                                }
+
+                                Crear
+                            </Button>
+
+                            :
+                            <Button
+                                type='submit'
+                                className='w-3/6 font-bold text-3xl'
+                                disabled={mutation.isLoading} >
+
+                                {
+                                    mutation.isLoading && <div className="mr-3">
+                                        <Spinner
+                                            size="sm"
+                                            light={true}
+                                        />
+                                    </div>
+                                }
+
+                                Editar
+                            </Button>
+                        }
 
                     </Modal.Footer>
 
@@ -118,7 +158,7 @@ export const CreateSucursal: FC<Props> = ({ visible, onClose }) => {
 
             </Modal>
 
-            <Toaster/>
+            <Toaster/>  
         </>
     )
 }

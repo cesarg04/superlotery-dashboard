@@ -1,6 +1,6 @@
 
 import { Navigate, Route, Routes } from "react-router-dom"
-import { Home, Loterias, Sucursales, Zonas } from "../pages"
+import { Home, Loterias, Rutas, Sucursales, Zonas } from "../pages"
 import { SuperadminLayout } from "../SuperadminLayout"
 import { PrivateRoute } from "./PrivateRoute"
 
@@ -14,6 +14,7 @@ export const SuperadminRoutes = () => {
                     <Route path="sucursales" element={<Sucursales />} />
                     <Route path="zonas" element={<Zonas />} />
                     <Route path="loterias" element={ <Loterias/> } />
+                    <Route path="rutas" element={ <Rutas/> } />
                     <Route path="/*" element={<Navigate to={'/superadmin'} />} />
                 </Route>
 

@@ -1,16 +1,12 @@
 import { Button } from "flowbite-react"
-import { useZonas } from "../hooks/useZonas"
 import { FC, useState } from "react"
 import { TableZonas } from "../components/zonas/TableZonas"
 import { CreateZona } from "../components/zonas/CreateZona"
 
 
-export const Zonas:FC = () => {
-
-    const { zonasQuery } = useZonas();
+export const Zonas: FC = () => {
 
     const [createZonaOpen, setcreateZonaOpen] = useState<boolean>(false);
-
 
     return (
         <div className="w-full">
@@ -20,11 +16,11 @@ export const Zonas:FC = () => {
                     Crear Zona
                 </Button>
             </div>
-            <TableZonas/>
+            <TableZonas />
 
-            <CreateZona 
-                visible={ createZonaOpen } 
-                onClose={ (event: boolean) => setcreateZonaOpen(event)  }/>
+            <CreateZona
+                visible={createZonaOpen}
+                onClose={(event: boolean) => setcreateZonaOpen(event)} />
 
 
         </div>

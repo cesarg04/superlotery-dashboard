@@ -18,7 +18,10 @@ export const Sucursales = () => {
 
     <TableSucursales/>
 
-    <CreateSucursal visible={openCreateSucursal} onClose={ (event) => setopenCreateSucursal(event)} />
+    <CreateSucursal 
+      visible={openCreateSucursal} 
+      onClose={ (event) => setopenCreateSucursal(event)}
+      mode="add" />
 
 
 
