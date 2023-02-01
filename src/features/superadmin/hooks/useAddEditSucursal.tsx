@@ -27,6 +27,7 @@ export const useAddEditSucursal = () => {
                 duration: 4000,
                 position: 'top-right'
             })
+            getAllSucursales.refetch()
         },
         onError: ( error ) => {
             toast.error('Error al crear la sucursal, intente de nuevo', {
@@ -40,6 +41,7 @@ export const useAddEditSucursal = () => {
 
     const editMutation = useMutation({
         mutationFn: (newTodo: Sucursalinputs) => {
+            JSON.stringify(newTodo)
             return baseURL.put('sucursales', newTodo);
         },
         onSuccess: ( data ) => {
@@ -53,7 +55,8 @@ export const useAddEditSucursal = () => {
             toast.error('Error al actualizar la sucursal, intente de nuevo', {
                 duration: 4000,
                 position: 'top-right'
-            })
+            }) 
+            console.log(error);
 
         }
     })

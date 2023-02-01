@@ -46,7 +46,9 @@ export const CreateSucursal: FC<Props> = (props) => {
                 size="md"
                 onClose={onClick}>
                 <Modal.Header>
-                    Crear Sucursal
+                        {
+                            props.mode === 'add' ? 'Crear Sucursal' : 'Editar Sucursal'
+                        }   
                 </Modal.Header>
                 <form onSubmit={ 
                         props.mode === 'add' 
@@ -82,26 +84,26 @@ export const CreateSucursal: FC<Props> = (props) => {
                             defaultValue={props.correo}
                             className="my-3"
                             type={'email'}
-                            {...register('correo', {
+                            {...register('email', {
                                 pattern: {
                                     value: emailRegex,
                                     message: 'Email invalido'
                                 }
                             })}
-                            helperText={!!errors.correo && <h2>{errors.correo.message}</h2>} />
+                            helperText={!!errors.email && <h2>{errors.email.message}</h2>} />
 
                         <TextInput
                             placeholder="Contraseña"
-                            required
+                            required={ props.mode === 'add' }
                             className="my-3"
                             type={'password'}
                             defaultValue={props.contraseña}
-                            {...register('contraseña', { minLength: 8 })}
-                            color={!!errors.contraseña ? 'failure' : 'primary'}
+                            {...register('password', { minLength: 8 })}
+                            color={!!errors.password ? 'failure' : 'primary'}
                         // helperText={ !!errors.contraseña  }
                         />
                         {
-                            errors.contraseña &&
+                            errors.password &&
                             <div className='flex text-red-500' >
                                 <AiOutlineWarning className='text-2xl mr-2' />
                                 <h3>La contraseña debe tener almenos 8 caracteres</h3>

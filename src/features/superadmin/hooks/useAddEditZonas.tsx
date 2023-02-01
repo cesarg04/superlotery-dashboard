@@ -5,11 +5,13 @@ import { useSucursales } from "./useSucursales"
 import { useMutation } from "@tanstack/react-query"
 import { baseApI } from "../../../api/apiSettings"
 import { toast } from "react-hot-toast"
+import { useZonas } from "./useZonas"
 
 export const useAddEditZonas = () => {
 
     const { stateAuth } = useAuthContext()
     const { getAllSucursales } = useSucursales( stateAuth.token! )
+    const { zonasQuery } = useZonas(stateAuth.token!)
     const { register, handleSubmit, formState: { errors }, reset } = useForm<ZonasInputs>()
     const { baseURL } = baseApI(stateAuth.token)
 
@@ -22,6 +24,8 @@ export const useAddEditZonas = () => {
                 duration: 4000,
                 position: 'top-right'
             })
+            zonasQuery.refetch()
+            reset()
         },
         onError: (error) => {
             toast.error('Error al crear la zona, intente de nuevo',{
@@ -32,9 +36,7 @@ export const useAddEditZonas = () => {
       })
 
     const onSubmit: SubmitHandler<ZonasInputs> = async (sucursalesData) => {
-
        mutation.mutate(sucursalesData)
-
     }
 
 
