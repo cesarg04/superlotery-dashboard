@@ -41,7 +41,7 @@ export const useAddEditSucursal = () => {
 
     const editMutation = useMutation({
         mutationFn: (newTodo: Sucursalinputs) => {
-            JSON.stringify(newTodo)
+            console.log(newTodo);
             return baseURL.put('sucursales', newTodo);
         },
         onSuccess: ( data ) => {

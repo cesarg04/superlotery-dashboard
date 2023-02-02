@@ -17,6 +17,7 @@ export const useAddEditZonas = () => {
 
     const mutation = useMutation({
         mutationFn: (newTodo: ZonasInputs) => {
+            console.log(newTodo)
           return baseURL.post('zonas', newTodo)
         },
         onSuccess: ( data ) => {

@@ -19,6 +19,7 @@ export const Zonas: FC = () => {
             <TableZonas />
 
             <CreateZona
+                mode="add"
                 visible={createZonaOpen}
                 onClose={(event: boolean) => setcreateZonaOpen(event)} />
 

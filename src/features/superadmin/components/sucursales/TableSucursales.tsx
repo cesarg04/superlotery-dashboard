@@ -33,7 +33,7 @@ export const TableSucursales = () => {
             direccion: data.direccion,
             correo: data.correo,
             tipo: data.tipo,
-            contraseña: '',
+            // contraseña: data.,
         })
 
         setvisibleEdit(!visibleEdit)
@@ -118,9 +118,7 @@ export const TableSucursales = () => {
             </Table>
             <CreateSucursal
                 visible={visibleEdit}
-                onClose={(event) => onClose(event)}
-                mode="edit"
-                {...dataEdit} />
+                onClose={(event) => onClose(event)} />
             <ModalConfitmation 
                 visible={ confirmDelete }
                 message="sucursal"

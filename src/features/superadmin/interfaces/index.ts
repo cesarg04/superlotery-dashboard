@@ -77,6 +77,7 @@ export interface LoteriesInputs{
 }
 
 export interface Sucursalinputs{
+    id?: number;
     nombre:         string;
     direccion:      string;
     tipo:           string;

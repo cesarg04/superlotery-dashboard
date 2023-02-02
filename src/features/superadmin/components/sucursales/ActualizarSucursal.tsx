@@ -8,6 +8,13 @@ import { Toaster } from 'react-hot-toast'
 interface Props {
     visible: boolean,
     onClose: (event: boolean) => any;
+    nombre?: string | undefined;
+    direccion?: string | undefined;
+    tipo?: string | undefined;
+    correo?: string | undefined;
+    contraseña?: string | undefined;
+
+
 }
 
 export const CreateSucursal: FC<Props> = (props) => {
@@ -40,17 +47,22 @@ export const CreateSucursal: FC<Props> = (props) => {
                 size="md"
                 onClose={onClick}>
                 <Modal.Header>
-                    Crear Sucursal
+                    Editar Sucursal
                 </Modal.Header>
                 <form onSubmit={
-                    handleSubmit(onSubmit)
+                    handleSubmit(onEdit)
                 } >
                     <Modal.Body className="">
+                        <ToggleSwitch
+                            checked={true}
+                            label="Cambiar contra"
+                            onChange={onChange} />
                         <TextInput
                             placeholder="Nombre"
                             required
                             className="my-3"
                             {...register('nombre', { required: true })}
+                            defaultValue={props.nombre}
                             color={!!errors.nombre ? 'failure' : ''}
                             helperText={!!errors.nombre && <p>El nombre es requerido...</p>} />
 
@@ -58,15 +70,18 @@ export const CreateSucursal: FC<Props> = (props) => {
                             placeholder="Direccion"
                             required
                             className="my-3"
+                            defaultValue={props.direccion}
                             {...register('direccion', { required: true })} />
                         <TextInput
                             placeholder="Tipo de sucursal"
                             required
+                            defaultValue={props.tipo}
                             className="my-3"
                             {...register('tipo', { required: true })} />
 
                         <TextInput
                             placeholder="Correo"
+                            defaultValue={props.correo}
                             className="my-3"
                             type={'email'}
                             {...register('email', {
@@ -81,6 +96,7 @@ export const CreateSucursal: FC<Props> = (props) => {
                             placeholder="Contraseña"
                             className="my-3"
                             type={'password'}
+                            defaultValue={props.contraseña}
                             {...register('password', { minLength: 8 })}
                             color={!!errors.password ? 'failure' : 'primary'}
                         // helperText={ !!errors.contraseña  }
@@ -96,24 +112,22 @@ export const CreateSucursal: FC<Props> = (props) => {
                         }
                     </Modal.Body>
                     <Modal.Footer className="justify-center">
+                        <Button
+                            type='submit'
+                            className='w-3/6 font-bold text-3xl'
+                            disabled={mutation.isLoading} >
 
-                                <Button
-                                    type='submit'
-                                    className='w-3/6 font-bold text-3xl'
-                                    disabled={mutation.isLoading} >
+                            {
+                                mutation.isLoading && <div className="mr-3">
+                                    <Spinner
+                                        size="sm"
+                                        light={true}
+                                    />
+                                </div>
+                            }
 
-                                    {
-                                        mutation.isLoading && <div className="mr-3">
-                                            <Spinner
-                                                size="sm"
-                                                light={true}
-                                            />
-                                        </div>
-                                    }
-
-                                    Crear
-                                </Button>
-                    
+                            Editar
+                        </Button>
                     </Modal.Footer>
 
                 </form>
