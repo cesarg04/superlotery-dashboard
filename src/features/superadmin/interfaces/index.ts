@@ -13,7 +13,7 @@ export interface SucursaIinputsEditAndDelete{
     nombre:     string;
     direccion:  string;
     tipo:       string;
-    correo:     string;
+    email:     string;
     contraseña?: string;
 }
  
@@ -123,37 +123,37 @@ export interface Combinaciones {
 }
 
 export interface Quinielas {
-    nombre: string;
-    primera: number;
-    segunda: number;
-    tercera: number
+    nombre:     string;
+    primera:    number;
+    segunda:    number;
+    tercera:    number
     loteria_id: number
 }
 export interface Pale {
-    nombre: string;
-    primera: number;
-    segunda: number;
+    nombre:     string;
+    primera:    number;
+    segunda:    number;
     loteria_id: number
 }
 
 export interface Tripleta {
-    nombre: string;
-    primera: number;
-    segunda: number;
+    nombre:     string;
+    primera:    number;
+    segunda:    number;
     loteria_id: number
 }
 
 export interface SuperPale {
-    nombre: string;
-    primera: number;
+    nombre:     string;
+    primera:    number;
     loteria_id: number
 }
 
 export interface CombinacionesInp{
-    quiniela: Quinielas;
-    pale: Pale;
-    tripleta: Tripleta;
-    superpale: SuperPale
+    quiniela:   Quinielas;
+    pale:       Pale;
+    tripleta:   Tripleta;
+    superpale:  SuperPale
 }
 
 export interface LoteriasInp{

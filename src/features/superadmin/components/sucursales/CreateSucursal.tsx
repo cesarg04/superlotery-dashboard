@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Button, Modal, Spinner, TextInput, ToggleSwitch } from "flowbite-react"
 import { AiOutlineWarning } from 'react-icons/ai'
-import { useAddEditSucursal } from '../../hooks/useAddEditSucursal'
+import { useAddSucursal } from '../../hooks/useAddSucursal'
 import { Toaster } from 'react-hot-toast'
 
 
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const CreateSucursal: FC<Props> = (props) => {
-    console.log(props)
 
     const { register,
         handleSubmit,
@@ -21,8 +20,8 @@ export const CreateSucursal: FC<Props> = (props) => {
         onSubmit,
         emailRegex,
         mutation,
-        onEdit }
-        = useAddEditSucursal()
+             }
+        = useAddSucursal()
 
     const onClick = () => {
         props.onClose(!props.visible)

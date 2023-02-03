@@ -8,8 +8,9 @@ import { useSucursales } from './useSucursales';
 import { useMutation } from '@tanstack/react-query';
 
 
-export const useAddEditSucursal = () => {
-
+export const useAddSucursal = () => {
+    
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const [changePass, setchangePass] = useState(false);
     const { stateAuth } = useAuthContext();
     const { baseURL } = baseApI(stateAuth.token);
@@ -40,28 +41,7 @@ export const useAddEditSucursal = () => {
     })
 
 
-    // Editar campos de una sucursal
-    const editMutation = useMutation({
-        mutationFn: (newTodo: Sucursalinputs) => {
-            console.log(newTodo);
-            return baseURL.put('sucursales', newTodo);
-        },
-        onSuccess: ( data ) => {
-            reset()
-            toast.success('Sucursal actualizada con exito', {
-                duration: 4000,
-                position: 'top-right'
-            })
-        },
-        onError: ( error ) => {
-            toast.error('Error al actualizar la sucursal, intente de nuevo', {
-                duration: 4000,
-                position: 'top-right'
-            }) 
-            console.log(error);
-
-        }
-    })
+    
 
     // Modificar la Contraseña
     const changePassordMutation = useMutation({
@@ -89,16 +69,11 @@ export const useAddEditSucursal = () => {
         
     }
 
-    const onEdit: SubmitHandler<Sucursalinputs> = (sucursalesData) => {
-
-        editMutation.mutate(sucursalesData)
-    } 
 
     const onSubmitPassword: SubmitHandler<{ id: number, passowrd: string }> = (data) => {
         changePassordMutation.mutate(data)
     }
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
     return {
         register,
@@ -108,9 +83,7 @@ export const useAddEditSucursal = () => {
         errors,
         onSubmit,
         emailRegex,
-        mutation,
-        editMutation,
-        onEdit,
+        mutation,        
         onSubmitPassword,
         changePass, 
         setchangePass,

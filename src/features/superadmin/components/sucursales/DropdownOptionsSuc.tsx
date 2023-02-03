@@ -6,6 +6,7 @@ import { SiLetsencrypt } from "react-icons/si"
 import { SucursaIinputsEditAndDelete, Sucursales } from "../../interfaces"
 import { ModalConfitmation } from '../ModalConfitmation'
 import { ActualizarSucursal } from './ActualizarSucursal'
+import { ChangePass } from './ChangePass'
 
 interface Props {
     sucursal: Sucursales
@@ -16,6 +17,7 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
     const [visibleEdit, setvisibleEdit] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [idDelete, setidDelete] = useState<number | undefined>()
+    const [changepw, setChangepw] = useState(false)
 
     const onClose = (event: boolean) => {
         setvisibleEdit(event)
@@ -27,7 +29,7 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
             id: data.id,
             nombre: data.nombre,
             direccion: data.direccion,
-            correo: data.email,
+            email: data.email,
             tipo: data.tipo,
             // contraseña: data.,
         })
@@ -54,7 +56,9 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
                     onClick={ () => onCloseModalDelete(!confirmDelete, sucursal.id) } >
                     Eliminar
                 </Dropdown.Item>
-                <Dropdown.Item icon={SiLetsencrypt}>
+                <Dropdown.Item 
+                    icon={SiLetsencrypt}
+                    onClick={ () => setChangepw(!changepw) } >
                     Cambiar contraseña
                 </Dropdown.Item>
             </Dropdown>
@@ -69,6 +73,11 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
                 visible={ visibleEdit }
                 onClose={ (event) => onClose(event) }
                 { ...dataEdit }
+            />
+            <ChangePass
+                id={ sucursal.id }
+                visible={ changepw }
+                onClose={ (val: boolean) => setChangepw(val) }
             />
         </>
     )
