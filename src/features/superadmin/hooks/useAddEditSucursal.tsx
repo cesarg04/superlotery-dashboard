@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { baseApI } from "../../../api/apiSettings";
 import { useAuthContext } from "../../../hooks/useContext";
 import { Sucursalinputs } from "../interfaces";
-import { sleep } from '../../../helpers/sleep';
 import { toast } from 'react-hot-toast';
 import { useSucursales } from './useSucursales';
 import { useMutation } from '@tanstack/react-query';
@@ -11,12 +10,14 @@ import { useMutation } from '@tanstack/react-query';
 
 export const useAddEditSucursal = () => {
 
+    const [changePass, setchangePass] = useState(false);
     const { stateAuth } = useAuthContext();
-    const { baseURL } = baseApI(stateAuth.token)
-    const { getAllSucursales } = useSucursales(stateAuth.token!)
+    const { baseURL } = baseApI(stateAuth.token);
+    const { getAllSucursales } = useSucursales(stateAuth.token!);
     const { register, handleSubmit, watch, formState: { errors }, setError, reset } = useForm<Sucursalinputs>();
 
 
+    // Agregar una sucursal
     const mutation = useMutation({
         mutationFn: (newTodo: Sucursalinputs) => {
             return baseURL.post('sucursales', newTodo);
@@ -39,6 +40,7 @@ export const useAddEditSucursal = () => {
     })
 
 
+    // Editar campos de una sucursal
     const editMutation = useMutation({
         mutationFn: (newTodo: Sucursalinputs) => {
             console.log(newTodo);
@@ -61,7 +63,26 @@ export const useAddEditSucursal = () => {
         }
     })
 
+    // Modificar la Contraseña
+    const changePassordMutation = useMutation({
+        mutationFn: (data: { passowrd: string, id: number }) => {
+            return baseURL.put('users/update/password', data)
+        },
+        onSuccess: () => {
+            toast.success('Contraseña modificada con exito...', {
+                duration: 4000,
+                position: 'top-right'
+            })
+        },
+        onError: () => {
+            toast.error('Error al modificar la contraseña, intente de nuevo', {
+                duration: 4000,
+                position: 'top-right'
+            })
+        }
+    })
 
+ 
     const onSubmit: SubmitHandler<Sucursalinputs> = async (sucursalesData) => {
 
         mutation.mutate(sucursalesData)
@@ -72,6 +93,10 @@ export const useAddEditSucursal = () => {
 
         editMutation.mutate(sucursalesData)
     } 
+
+    const onSubmitPassword: SubmitHandler<{ id: number, passowrd: string }> = (data) => {
+        changePassordMutation.mutate(data)
+    }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
@@ -85,6 +110,10 @@ export const useAddEditSucursal = () => {
         emailRegex,
         mutation,
         editMutation,
-        onEdit
+        onEdit,
+        onSubmitPassword,
+        changePass, 
+        setchangePass,
+        changePassordMutation
     }
 }

@@ -4,49 +4,22 @@ import { useParseDate } from "../../../../hooks/useDateParse"
 import { useAuthContext } from "../../../../hooks/useContext"
 import { useState } from "react"
 import { SucursaIinputsEditAndDelete, Sucursales } from "../../interfaces"
-import { CreateSucursal } from "./CreateSucursal"
-import { FiEdit } from 'react-icons/fi'
-import { RiDeleteBin5Line } from 'react-icons/ri'
+import { ActualizarSucursal } from "./ActualizarSucursal"
 import { ModalConfitmation } from "../ModalConfitmation"
-import { useDeleteSettings } from "../../hooks/useDeleteSettings"
+import { DropdownOptionsSuc } from "./DropdownOptionsSuc"
 
 export const TableSucursales = () => {
-    const [dataEdit, setdataEdit] = useState<SucursaIinputsEditAndDelete>()
-    const [visibleEdit, setvisibleEdit] = useState(false)
     const [find, setFind] = useState('')
-    const [confirmDelete, setConfirmDelete] = useState(false)
-    const [idDelete, setidDelete] = useState<number | undefined>()
+
     const { stateAuth } = useAuthContext()
     const { getAllSucursales } = useSucursales(stateAuth.token!)
-
-
-
-    const onClose = (event: boolean) => {
-        setvisibleEdit(event)
-    }
-
-
-    const replaceValues = (data: Sucursales) => {
-        setdataEdit({
-            id: data.id,
-            nombre: data.nombre,
-            direccion: data.direccion,
-            correo: data.correo,
-            tipo: data.tipo,
-            // contraseña: data.,
-        })
-
-        setvisibleEdit(!visibleEdit)
-    }
 
     const onChangeFind = (val: string) => {
         setFind(val)
     }
 
-    const onCloseModalDelete = ( event: boolean, id: number ) => {
-        setConfirmDelete(event)
-        setidDelete(id)
-    }   
+
+      
 
     return (
         <>
@@ -95,7 +68,9 @@ export const TableSucursales = () => {
                                     {useParseDate(sucursal.created_at)}
                                 </Table.Cell>
                                 <Table.Cell className="flex gap-3" >
-                                    <Button
+                                    <DropdownOptionsSuc
+                                    sucursal={ sucursal } />
+                                    {/* <Button
                                         color={'warning'}
                                         onClick={() => replaceValues(sucursal)}
                                         className="font-semibold text-lg"
@@ -109,22 +84,14 @@ export const TableSucursales = () => {
                                     >
                                         <RiDeleteBin5Line className="text-xl mx-1" />
                                         Eliminar
-                                    </Button>
+                                    </Button> */}
                                 </Table.Cell>
                             </Table.Row>
                         ))
                     }
                 </Table.Body>
             </Table>
-            <CreateSucursal
-                visible={visibleEdit}
-                onClose={(event) => onClose(event)} />
-            <ModalConfitmation 
-                visible={ confirmDelete }
-                message="sucursal"
-                endpoint="sucursales"
-                id={ idDelete }
-                onClose={(event) => setConfirmDelete(event)} />
+
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Button, Modal, Spinner, TextInput, ToggleSwitch } from "flowbite-react"
 import { AiOutlineWarning } from 'react-icons/ai'
 import { useAddEditSucursal } from '../../hooks/useAddEditSucursal'
@@ -6,29 +6,30 @@ import { Toaster } from 'react-hot-toast'
 
 
 interface Props {
-    visible: boolean,
-    onClose: (event: boolean) => any;
-    nombre?: string | undefined;
-    direccion?: string | undefined;
-    tipo?: string | undefined;
-    correo?: string | undefined;
-    contraseña?: string | undefined;
-
-
+    visible:        boolean;
+    onClose:        (event: boolean) => any;
+    id?:            number | undefined;
+    nombre?:        string | undefined;
+    direccion?:     string | undefined;
+    tipo?:          string | undefined;
+    correo?:        string | undefined;
+    contraseña?:    string | undefined;
 }
 
-export const CreateSucursal: FC<Props> = (props) => {
+export const ActualizarSucursal: FC<Props> = (props) => {
     console.log(props)
+   
 
     const { register,
         handleSubmit,
-        watch,
-        setError,
         errors,
-        onSubmit,
         emailRegex,
         mutation,
-        onEdit }
+        onEdit,
+        onSubmitPassword,
+        changePass, 
+        setchangePass
+         }
         = useAddEditSucursal()
 
     const onClick = () => {
@@ -54,9 +55,9 @@ export const CreateSucursal: FC<Props> = (props) => {
                 } >
                     <Modal.Body className="">
                         <ToggleSwitch
-                            checked={true}
+                            checked={changePass}
                             label="Cambiar contra"
-                            onChange={onChange} />
+                            onChange={ () => setchangePass(!changePass) } />
                         <TextInput
                             placeholder="Nombre"
                             required
@@ -64,6 +65,7 @@ export const CreateSucursal: FC<Props> = (props) => {
                             {...register('nombre', { required: true })}
                             defaultValue={props.nombre}
                             color={!!errors.nombre ? 'failure' : ''}
+                            disabled={ changePass }
                             helperText={!!errors.nombre && <p>El nombre es requerido...</p>} />
 
                         <TextInput
@@ -71,12 +73,14 @@ export const CreateSucursal: FC<Props> = (props) => {
                             required
                             className="my-3"
                             defaultValue={props.direccion}
+                            disabled={ changePass }
                             {...register('direccion', { required: true })} />
                         <TextInput
                             placeholder="Tipo de sucursal"
                             required
                             defaultValue={props.tipo}
                             className="my-3"
+                            disabled={ changePass }
                             {...register('tipo', { required: true })} />
 
                         <TextInput
@@ -84,6 +88,7 @@ export const CreateSucursal: FC<Props> = (props) => {
                             defaultValue={props.correo}
                             className="my-3"
                             type={'email'}
+                            disabled
                             {...register('email', {
                                 pattern: {
                                     value: emailRegex,
@@ -97,6 +102,7 @@ export const CreateSucursal: FC<Props> = (props) => {
                             className="my-3"
                             type={'password'}
                             defaultValue={props.contraseña}
+                            disabled={ !changePass }
                             {...register('password', { minLength: 8 })}
                             color={!!errors.password ? 'failure' : 'primary'}
                         // helperText={ !!errors.contraseña  }

@@ -3,7 +3,7 @@ export interface Sucursales {
     nombre:     string;
     direccion:  string;
     tipo:       string;
-    correo:     string;
+    email:     string;
     created_at: string;
     updated_at: string;
 }
@@ -77,12 +77,12 @@ export interface LoteriesInputs{
 }
 
 export interface Sucursalinputs{
-    id?: number;
+    id: number;
     nombre:         string;
     direccion:      string;
     tipo:           string;
     email:          string;
-    password:       string
+    password?:       string
 }
 
 export interface ZonasInputs{
