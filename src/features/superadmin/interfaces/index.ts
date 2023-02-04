@@ -22,10 +22,10 @@ export interface Zonas {
     nombre:             string;
     pais:               string;
     provincia:          string;
-    tipo_moneda:        null | string;
-    valor_moneda_pesos: null | string;
-    limites:            null | string;
-    estado_limite:      null | string;
+    tipo_moneda:        string;
+    valor_moneda_pesos: string;
+    limites:            string;
+    estado_limite:      string;
     sucursal_id:        string;
     created_at:         string;
     updated_at:         string;

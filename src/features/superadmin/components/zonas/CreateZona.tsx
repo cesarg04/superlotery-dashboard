@@ -1,6 +1,6 @@
 import { Button, Label, Modal, Select, Spinner, TextInput, ToggleSwitch } from "flowbite-react"
 import { FC } from "react"
-import { useAddEditZonas } from "../../hooks/useAddEditZonas"
+import { useAddEditZonas } from "../../hooks/useAddZonas"
 import { Toaster } from "react-hot-toast"
 
 
@@ -186,9 +186,6 @@ export const CreateZona: FC<Props> = (props) => {
                 </Modal.Footer>
 
             </form>
-
-
-            <Toaster />
         </Modal>
     )
 }

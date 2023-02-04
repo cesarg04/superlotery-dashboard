@@ -37,12 +37,6 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
         setvisibleEdit(!visibleEdit)
     }
 
-
-    const onCloseModalDelete = (event: boolean, id: number) => {
-        setConfirmDelete(event)
-        setidDelete(id)
-    }
-
     return (
         <>
             <Dropdown label="Opciones" color={'default'}>
@@ -53,7 +47,7 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
                 </Dropdown.Item>
                 <Dropdown.Item 
                     icon={RiDeleteBin5Line}
-                    onClick={ () => onCloseModalDelete(!confirmDelete, sucursal.id) } >
+                    onClick={ () =>  setConfirmDelete(!confirmDelete) } >
                     Eliminar
                 </Dropdown.Item>
                 <Dropdown.Item 
@@ -67,7 +61,7 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
                 visible={ confirmDelete }
                 message="sucursal"
                 endpoint="sucursales"
-                id={ idDelete }
+                id={ sucursal.id }
                 onClose={(event) => setConfirmDelete(event)} />
             <ActualizarSucursal
                 visible={ visibleEdit }

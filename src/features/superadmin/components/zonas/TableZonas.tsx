@@ -7,6 +7,7 @@ import { FiEdit } from 'react-icons/fi';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { ModalConfitmation } from '../ModalConfitmation';
 import { ZonasInputs } from '../../interfaces';
+import { DropdownOptionsZn } from './DropdownOptionsZn';
 
 export const TableZonas = () => {
     const [dataEdit, setdataEdit] = useState<ZonasInputs>()
@@ -66,7 +67,9 @@ export const TableZonas = () => {
                         />
                     </Table.HeadCell>
                 </Table.Head>
-                <Table.Body className="divide-y">
+                <Table.Body 
+                className="divide-y"
+                >
 
                     {
                         zonasQuery.data?.filter((e) => e.nombre.toLocaleLowerCase().includes(find)).map(data => (
@@ -87,7 +90,10 @@ export const TableZonas = () => {
                                     {data?.tipo_moneda}
                                 </Table.Cell>
                                 <Table.Cell className='flex gap-3' >
-                                    <Button
+                                    <DropdownOptionsZn 
+                                        zona={ data }
+                                        />
+                                    {/* <Button
                                         color={'warning'}
                                         // onClick={() => replaceValues(sucursal)}
                                         className="font-semibold text-lg"
@@ -101,7 +107,7 @@ export const TableZonas = () => {
                                     >
                                         <RiDeleteBin5Line className="text-xl mx-1" />
                                         Eliminar
-                                    </Button>
+                                    </Button> */}
                                 </Table.Cell>
                             </Table.Row>
                         ))

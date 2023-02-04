@@ -33,8 +33,7 @@ export const ChangePass: FC<Props> = ({ visible, onClose, id }) => {
                 position: 'top-left'
             })
         },
-        onError: (data, vairables) => {
-            console.log(vairables)
+        onError: () => {
             toast.error('Error al modidicar la contraseña, intente de nuevo', {
                 duration: 4000,
                 position: 'top-right'
