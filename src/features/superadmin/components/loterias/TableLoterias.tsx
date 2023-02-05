@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Badge, Table, TextInput } from "flowbite-react"
 import { useLoterias } from "../../hooks/useLoterias"
 import { useAuthContext } from "../../../../hooks/useContext"
+import { DropdownOptionsLoteries } from './DropdownOptionsLoteries'
 
 export const TableLoterias = () => {
     const [find, setFind] = useState('')
@@ -63,12 +64,7 @@ export const TableLoterias = () => {
                                     <br />
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <a
-                                        href="/tables"
-                                        className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                    >
-                                        Edit
-                                    </a>
+                                   <DropdownOptionsLoteries/>
                                 </Table.Cell>
                             </Table.Row>
                         ))

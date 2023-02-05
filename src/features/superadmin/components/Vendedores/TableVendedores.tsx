@@ -1,25 +1,21 @@
-import { Button, Table, TextInput } from "flowbite-react"
-import { useSucursales } from "../../hooks/useSucursales"
-import { useParseDate } from "../../../../hooks/useDateParse"
-import { useAuthContext } from "../../../../hooks/useContext"
-import { useState } from "react"
-import { SucursaIinputsEditAndDelete, Sucursales } from "../../interfaces"
-import { ActualizarSucursal } from "./ActualizarSucursal"
-import { ModalConfitmation } from "../ModalConfitmation"
-import { DropdownOptionsSuc } from "./DropdownOptionsSuc"
+import { useState } from 'react';
+import { Table, TextInput } from "flowbite-react"
+import { useAuthContext } from '../../../../hooks/useContext';
+import { useVendedores } from '../../hooks/useVendedores';
+import { useZonas } from '../../hooks/useZonas';
+import { getNameZonaById } from '../../../../helpers/parseZonas';
 
-export const TableSucursales = () => {
-    const [find, setFind] = useState('')
+export const TableVendedores = () => {
 
+    const [find, setfind] = useState('')
     const { stateAuth } = useAuthContext()
-    const { getAllSucursales } = useSucursales(stateAuth.token!)
 
-    const onChangeFind = (val: string) => {
-        setFind(val)
+    const { vendedoresQuery } = useVendedores( stateAuth.token! )
+    const { zonasQuery } = useZonas(stateAuth.token!)
+
+    const onChangeFind = ( val: string ) => {
+        setfind(val)
     }
-
-
-      
 
     return (
         <>
@@ -32,13 +28,13 @@ export const TableSucursales = () => {
                         Nombre
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        direccion
+                        Usuario
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        tipo
+                        correo
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        fecha de creacion
+                        zona
                     </Table.HeadCell>
                     <Table.HeadCell>
                         <TextInput
@@ -50,26 +46,26 @@ export const TableSucursales = () => {
                 </Table.Head>
                 <Table.Body className="divide-y">
                     {
-                        getAllSucursales.data?.filter((e) => e.nombre.toLocaleLowerCase().includes(find)).map(sucursal => (
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={sucursal.id}>
+                        vendedoresQuery.data && vendedoresQuery.data?.filter((e) => e.nombre.toLocaleLowerCase().includes(find)).map(vend => (
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={vend.id}>
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {sucursal?.id}
+                                    {vend?.id}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {sucursal?.nombre}
+                                    {vend?.nombre}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {sucursal.direccion}
+                                    {vend.usuario}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {sucursal.tipo}
+                                    {vend.email}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {useParseDate(sucursal.created_at)}
+                                    { getNameZonaById( vend.zona_id, zonasQuery.data || [] ) }
                                 </Table.Cell>
                                 <Table.Cell className="flex gap-3" >
-                                    <DropdownOptionsSuc
-                                    sucursal={ sucursal } />
+                                    {/* <DropdownOptionsSuc
+                                    sucursal={ sucursal } /> */}
                                 </Table.Cell>
                             </Table.Row>
                         ))

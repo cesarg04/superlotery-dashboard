@@ -59,6 +59,9 @@ export const TableZonas = () => {
                         Tipo de moneda
                     </Table.HeadCell>
                     <Table.HeadCell>
+                        Sucursal
+                    </Table.HeadCell>
+                    <Table.HeadCell>
                         <TextInput
                             type={'text'}
                             placeholder='Buscar'
@@ -88,6 +91,9 @@ export const TableZonas = () => {
                                 </Table.Cell>
                                 <Table.Cell>
                                     {data?.tipo_moneda}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {data?.sucursal_id}
                                 </Table.Cell>
                                 <Table.Cell className='flex gap-3' >
                                     <DropdownOptionsZn 
