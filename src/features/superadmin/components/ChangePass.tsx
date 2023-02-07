@@ -2,14 +2,15 @@ import { useState, FC } from "react"
 import { Button, Checkbox, Label, Modal, Spinner, TextInput } from "flowbite-react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useMutation } from "@tanstack/react-query";
-import { baseApI } from "../../../../api/apiSettings";
-import { useAuthContext } from "../../../../hooks/useContext";
+import { baseApI } from "../../../api/apiSettings";
+import { useAuthContext } from "../../../hooks/useContext";
 import { toast } from "react-hot-toast";
 
 interface Props {
     visible: boolean;
     onClose: (val: boolean) => void;
-    id: number
+    id: number;
+    key_end: string;
 }
 
 interface ChangePasswordType {
@@ -18,20 +19,21 @@ interface ChangePasswordType {
     re_password: string
 }
 
-export const ChangePass: FC<Props> = ({ visible, onClose, id }) => {
+export const ChangePass: FC<Props> = ({ visible, onClose, id, key_end }) => {
     const { stateAuth } = useAuthContext()
     const { baseURL } = baseApI(stateAuth.token)
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<ChangePasswordType>()
+    const { register, handleSubmit, setError, formState: { errors }, reset } = useForm<ChangePasswordType>()
 
     const changepwMutation = useMutation({
         mutationFn: (pass: ChangePasswordType) => {
-            return baseURL.put('users/update/password', pass)
+            return baseURL.put(`${ key_end }/update/password`, pass)
         },
         onSuccess: () => {
             toast.success('Contraseña modificada correctamente', {
                 duration: 4000,
-                position: 'top-left'
+                position: 'top-right'
             })
+            reset()
         },
         onError: () => {
             toast.error('Error al modidicar la contraseña, intente de nuevo', {

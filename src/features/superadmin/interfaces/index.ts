@@ -172,15 +172,15 @@ export interface Vendedores {
     usuario:              string;
     email:                string;
     password:             string;
-    celular:              null | string;
-    direccion:            null | string;
+    celular:              string | undefined;
+    direccion:            string | undefined;
     estado:               number;
     comision_general:     number;
-    comision_supervision: null;
-    comision_pale:        null;
-    comision_super_pale:  null;
-    comision_quiniela:    null;
-    comision_tripleta:    null;
+    comision_supervision: number | undefined;
+    comision_pale:        number | undefined;
+    comision_super_pale:  number | undefined;
+    comision_quiniela:    number | undefined;
+    comision_tripleta:    number | undefined;
     zona_id:              number;
     role_id:              number;
     created_at:           string;
@@ -204,4 +204,24 @@ export interface VendedoresInpus {
     comision_quiniela:    number | null;
     comision_tripleta:    number | null;
     zona_id:              number;
+    role_id:              number;
+}
+
+export interface VendedoresInpusUpdate {
+    id?:                  number;
+    cedula:               string;
+    nombre:               string;
+    apellidos:            string;
+    usuario:              string;
+    email:                string;
+    celular:              string | undefined;
+    direccion:            string;
+    comision_general:     number;
+    comision_supervision: number | undefined;
+    comision_pale:        number | undefined;
+    comision_super_pale:  number | undefined;
+    comision_quiniela:    number | undefined;
+    comision_tripleta:    number | undefined;
+    zona_id:              number;
+    role_id:              number;
 }

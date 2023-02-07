@@ -6,7 +6,7 @@ import App from './App'
 import './index.css'
 import { AuthProvider } from './context/AuthContext'
 
-const client = new QueryClient()
+export const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

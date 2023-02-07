@@ -6,7 +6,7 @@ import { SiLetsencrypt } from "react-icons/si"
 import { SucursaIinputsEditAndDelete, Sucursales } from "../../interfaces"
 import { ModalConfitmation } from '../ModalConfitmation'
 import { ActualizarSucursal } from './ActualizarSucursal'
-import { ChangePass } from './ChangePass'
+import { ChangePass } from '../ChangePass'
 
 interface Props {
     sucursal: Sucursales
@@ -16,7 +16,6 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
     const [dataEdit, setdataEdit] = useState<SucursaIinputsEditAndDelete>()
     const [visibleEdit, setvisibleEdit] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
-    const [idDelete, setidDelete] = useState<number | undefined>()
     const [changepw, setChangepw] = useState(false)
 
     const onClose = (event: boolean) => {
@@ -69,6 +68,7 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
                 { ...dataEdit }
             />
             <ChangePass
+                key_end='sucursales'
                 id={ sucursal.id }
                 visible={ changepw }
                 onClose={ (val: boolean) => setChangepw(val) }

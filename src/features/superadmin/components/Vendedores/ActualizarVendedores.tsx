@@ -1,48 +1,73 @@
-import { Button, Modal, Select, TextInput } from "flowbite-react";
+import { Button, Modal, Select, TextInput, ToggleSwitch } from "flowbite-react"
 import { FC } from "react";
-import { useAddVendedor } from "../../hooks/useAddVendedor";
+import { useEditVendedor } from "../../hooks/useEditVendedor";
 import { Toaster } from "react-hot-toast";
+import { getNameZonaById } from '../../../../helpers/parseZonas'
+
 
 interface Props {
     visible: boolean;
     onClose: (event: boolean) => void;
+    id?: number;
+    cedula: string;
+    nombre: string;
+    apellidos: string;
+    usuario: string;
+    email: string;
+    password: string;
+    celular: string | undefined;
+    direccion: string | undefined;
+    comision_general: number;
+    comision_supervision: number | undefined;
+    comision_pale: number | undefined;
+    comision_super_pale: number | undefined;
+    comision_quiniela: number | undefined;
+    comision_tripleta: number | undefined;
+    zona_id: number;
+    role_id: number;
 
 }
 
-export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
 
-    const {
-        zonasQuery,
-        register,
-        errors,
-        handleSubmit,
-        onSubmit
-    } = useAddVendedor()
+export const ActualizarVendedores: FC<Props> = (props) => {
 
     const onCl = () => {
-        onClose(!visible)
+        props.onClose(!props.visible)
     }
 
-    return (
+    const {
+        register,
+        handleSubmit,
+        zonasQuery,
+        onSubmit,
+        isEdit,
+        setIsEdit
+    } = useEditVendedor(props.id)
 
+    return (
         <>
             <Modal
-                show={visible}
+                show={props.visible}
                 size="6xl"
                 onClose={onCl}
             >
                 <Modal.Header className="px-10" >
                     Crear vendedor
+                    <ToggleSwitch
+                        checked={isEdit}
+                        label="Toggle me"
+                        onChange={ () => setIsEdit(!isEdit) }
+                        />
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit(onSubmit)} >
                         <div className="space-y-6 p-6 max-h-96 overflow-auto">
-
                             <div className='flex flex-row gap-3'>
                                 <TextInput
                                     required
                                     addon="Nombre"
                                     className='basis-2/6'
+                                    defaultValue={props.nombre}
                                     type={'text'}
                                     {...register('nombre')}
                                 />
@@ -50,6 +75,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     required
                                     addon="Apellidos"
                                     type={'text'}
+                                    defaultValue={props.apellidos}
                                     className="basis-2/6"
                                     {...register('apellidos')}
                                 />
@@ -59,6 +85,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="Cedula"
                                     type={'text'}
                                     className="basis-2/6"
+                                    defaultValue={props.cedula}
                                     {...register('cedula')}
                                 />
                             </div>
@@ -69,6 +96,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="Usuario"
                                     className='basis-2/6'
                                     type={'text'}
+                                    defaultValue={props.usuario}
                                     {...register('usuario')}
                                 />
                                 <TextInput
@@ -76,15 +104,8 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="Correo"
                                     type={'email'}
                                     className="basis-2/6"
+                                    defaultValue={props.email}
                                     {...register('email')}
-                                />
-
-                                <TextInput
-                                    required
-                                    addon="Contraseña"
-                                    type={'password'}
-                                    className="basis-2/6"
-                                    {...register('password')}
                                 />
                             </div>
 
@@ -94,6 +115,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="Direccion"
                                     className='basis-2/6'
                                     type={'text'}
+                                    defaultValue={props.direccion}
                                     {...register('direccion')}
                                 />
 
@@ -102,25 +124,24 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="Telefono"
                                     className='basis-2/6'
                                     type={'tel'}
+                                    defaultValue={ props.celular }
                                     {...register('celular')}
                                 />
 
                                 <Select
-                                    required
                                     addon="Zona"
                                     className="basis-2/6"
+                                    required
                                     {...register('zona_id')}
+                                    defaultValue={ props.zona_id }
                                 >
                                     {
-                                        zonasQuery.data?.map((zona) => (
-                                            <option
-                                                key={zona.id}
-                                                value={zona.id}
-                                            >
-                                                {zona.nombre}
-                                            </option>
-                                        ))
+                                        <option value={ props.zona_id } >
+                                            { getNameZonaById(props.zona_id, zonasQuery.data || [] ) }
+                                        </option>   
                                     }
+
+                                    hello
                                 </Select>
                             </div>
 
@@ -130,6 +151,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_general"
                                     className='basis-2/6'
                                     type={'number'}
+                                    defaultValue={ props.comision_general }
                                     {...register('comision_general')}
                                 />
                                 <TextInput
@@ -137,6 +159,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_supervision"
                                     type={'number'}
                                     className="basis-2/6"
+                                    defaultValue={ props.comision_supervision }
                                     {...register('comision_supervision')}
                                 />
 
@@ -145,6 +168,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_pale"
                                     type={'number'}
                                     className="basis-2/6"
+                                    defaultValue={ props.comision_pale }
                                     {...register('comision_pale')}
                                 />
                             </div>
@@ -155,6 +179,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_super_pale"
                                     className='basis-2/6'
                                     type={'number'}
+                                    defaultValue={ props.comision_super_pale }
                                     {...register('comision_super_pale')}
                                 />
                                 <TextInput
@@ -162,6 +187,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_quiniela"
                                     type={'number'}
                                     className="basis-2/6"
+                                    defaultValue={ props.comision_quiniela }
                                     {...register('comision_quiniela')}
                                 />
 
@@ -170,6 +196,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     addon="comision_tripleta"
                                     type={'number'}
                                     className="basis-2/6"
+                                    defaultValue={ props.comision_tripleta }
                                     {...register('comision_tripleta')}
                                 />
                             </div>
@@ -180,7 +207,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                     type="submit"
                                     size={'xl'}
                                     className="w-30 text-3xl">
-                                    Crear Vendendor
+                                    Actualizar datos
                                 </Button>
                             </div>
 
@@ -192,7 +219,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                 </Modal.Footer>
             </Modal>
 
-            <Toaster/>
+            <Toaster />
         </>
     )
 }

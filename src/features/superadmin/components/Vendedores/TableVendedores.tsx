@@ -4,6 +4,7 @@ import { useAuthContext } from '../../../../hooks/useContext';
 import { useVendedores } from '../../hooks/useVendedores';
 import { useZonas } from '../../hooks/useZonas';
 import { getNameZonaById } from '../../../../helpers/parseZonas';
+import { DropdownOptionsVend } from './DropdownOptionsVend';
 
 export const TableVendedores = () => {
 
@@ -64,8 +65,7 @@ export const TableVendedores = () => {
                                     { getNameZonaById( vend.zona_id, zonasQuery.data || [] ) }
                                 </Table.Cell>
                                 <Table.Cell className="flex gap-3" >
-                                    {/* <DropdownOptionsSuc
-                                    sucursal={ sucursal } /> */}
+                                    <DropdownOptionsVend vendendor={ vend } />
                                 </Table.Cell>
                             </Table.Row>
                         ))
