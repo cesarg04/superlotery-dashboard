@@ -19,12 +19,21 @@ export const SidebarComponent = () => {
                         
                         <Sidebar.Collapse
                             icon={HiShoppingBag}
-                            label="E-commerce"
+                            label="Loterias"
                         >
-                            <Sidebar.Item href="#">
-                                Products
+                            <Link to={'/superadmin/loterias'} >
+                            <Sidebar.Item>
+                                Lista de Loterias
                             </Sidebar.Item>
+                            </Link>
+                            <Link to={'/superadmin/publicar-sorteos'} >
+                            <Sidebar.Item>
+                                Publicar Sorteos
+                            </Sidebar.Item>
+                            
+                            </Link>
                         </Sidebar.Collapse>
+
                         <Link to={'/superadmin/sucursales'}>
                         
                         <Sidebar.Item
@@ -34,12 +43,12 @@ export const SidebarComponent = () => {
                         </Sidebar.Item>
                         </Link>
 
-                        <Link to={'/superadmin/loterias'} >
+                        <Link to={'/superadmin/vendedores'} >
                         <Sidebar.Item
                             href="#"
                             icon={HiUser}
                         >
-                            Loterias
+                            Vendedores
                         </Sidebar.Item>
                         
                         

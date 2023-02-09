@@ -55,7 +55,7 @@ export const TableLoterias = () => {
                                 <Table.Cell>
                                     {loterie.abreviatura}
                                 </Table.Cell>
-                                <Table.Cell>
+                                <Table.Cell className='flex'>
                                     {(loterie.estado === 1) ?
                                         <Badge color="success" size="sm" >Activa</Badge>
                                         : <Badge color="warning" size="sm">Inactiva</Badge>}

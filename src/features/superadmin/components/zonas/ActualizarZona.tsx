@@ -5,6 +5,7 @@ import { baseApI } from '../../../../api/apiSettings';
 import { useEditZonas } from '../../hooks/useEditZonas';
 import { Toaster } from 'react-hot-toast';
 import { BsCheckLg } from 'react-icons/bs';
+import { getNameSucursalById } from '../../../../helpers/parseZonas';
 
 
 interface Props {
@@ -121,21 +122,13 @@ export const ActualizarZona: FC<Props> = (props) => {
                   </div>
                   <Select
                     id="sucursal"
-                    required={true}
-                    defaultValue={props.sucursal}
-                    {...register('sucursal_id')}
-
-                  >
-                    {
-                      getAllSucursales.data?.map((suc) => (
-                        <option
-                          value={suc.id}
-                          key={suc.id} >
-                          {suc.nombre}
-                        </option>
-
-                      ))
-                    }
+                    required
+                    defaultValue={props.sucursal_id}
+                    {...register('sucursal_id')}> 
+                      <option value={ props.sucursal_id } >
+                        { getNameSucursalById(Number(props.sucursal_id), getAllSucursales.data || []) }
+                      </option>
+                    
                   </Select>
                 </div>
               </div>
