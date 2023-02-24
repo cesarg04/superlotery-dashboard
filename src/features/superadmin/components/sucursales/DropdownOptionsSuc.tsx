@@ -2,11 +2,12 @@ import { FC, useState } from 'react'
 import { Dropdown } from "flowbite-react"
 import { FiEdit } from "react-icons/fi"
 import { RiDeleteBin5Line } from "react-icons/ri"
-import { SiLetsencrypt } from "react-icons/si"
+import { SiHomeassistantcommunitystore, SiLetsencrypt } from "react-icons/si"
 import { SucursaIinputsEditAndDelete, Sucursales } from "../../interfaces"
 import { ModalConfitmation } from '../ModalConfitmation'
 import { ActualizarSucursal } from './ActualizarSucursal'
 import { ChangePass } from '../ChangePass'
+import { ZonasPorSucursal } from '../zonas/ZonasPorSucursal'
 
 interface Props {
     sucursal: Sucursales
@@ -17,11 +18,11 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
     const [visibleEdit, setvisibleEdit] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [changepw, setChangepw] = useState(false)
+    const [visibleZonasView, setvisibleZonasView] = useState(false);
 
     const onClose = (event: boolean) => {
         setvisibleEdit(event)
     }
-
 
     const replaceValues = (data: Sucursales) => {
         setdataEdit({
@@ -39,39 +40,50 @@ export const DropdownOptionsSuc: FC<Props> = ({ sucursal }) => {
     return (
         <>
             <Dropdown label="Opciones" color={'default'}>
-                <Dropdown.Item 
+                <Dropdown.Item
                     icon={FiEdit}
-                    onClick={ () => replaceValues(sucursal) } >
+                    onClick={() => replaceValues(sucursal)} >
                     Editar
                 </Dropdown.Item>
-                <Dropdown.Item 
+                <Dropdown.Item
                     icon={RiDeleteBin5Line}
-                    onClick={ () =>  setConfirmDelete(!confirmDelete) } >
+                    onClick={() => setConfirmDelete(!confirmDelete)} >
                     Eliminar
                 </Dropdown.Item>
-                <Dropdown.Item 
+                <Dropdown.Item
                     icon={SiLetsencrypt}
-                    onClick={ () => setChangepw(!changepw) } >
+                    onClick={() => setChangepw(!changepw)} >
                     Cambiar contraseña
+                </Dropdown.Item>
+                <Dropdown.Item
+                    icon={SiHomeassistantcommunitystore}
+                    onClick={() => setvisibleZonasView(!visibleZonasView)}
+                >
+                    Ver zonas
                 </Dropdown.Item>
             </Dropdown>
 
             <ModalConfitmation
-                visible={ confirmDelete }
+                visible={confirmDelete}
                 message="sucursal"
                 endpoint="sucursales"
-                id={ sucursal.id }
+                id={sucursal.id}
                 onClose={(event) => setConfirmDelete(event)} />
             <ActualizarSucursal
-                visible={ visibleEdit }
-                onClose={ (event) => onClose(event) }
-                { ...dataEdit }
+                visible={visibleEdit}
+                onClose={(event) => onClose(event)}
+                {...dataEdit}
             />
             <ChangePass
                 key_end='sucursales'
-                id={ sucursal.id }
-                visible={ changepw }
-                onClose={ (val: boolean) => setChangepw(val) }
+                id={sucursal.id}
+                visible={changepw}
+                onClose={(val: boolean) => setChangepw(val)}
+            />
+            <ZonasPorSucursal
+                id={sucursal.id}
+                visible={visibleZonasView}
+                onClose={(val) => setvisibleZonasView(val)}
             />
         </>
     )

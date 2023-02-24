@@ -1,41 +1,24 @@
 import { useState } from 'react';
-import { Button, Table, TextInput } from "flowbite-react";
+import { Table, TextInput } from "flowbite-react";
 import { useZonas } from "../../hooks/useZonas";
 import { parseMoney } from "../../../../helpers/parseMoney";
 import { useAuthContext } from "../../../../hooks/useContext";
-import { FiEdit } from 'react-icons/fi';
-import { RiDeleteBin5Line } from 'react-icons/ri';
 import { ModalConfitmation } from '../ModalConfitmation';
-import { ZonasInputs } from '../../interfaces';
 import { DropdownOptionsZn } from './DropdownOptionsZn';
+import { getNameSucursalById } from '../../../../helpers/parseZonas';
+import { useSucursales } from '../../hooks/useSucursales';
 
 export const TableZonas = () => {
-    const [dataEdit, setdataEdit] = useState<ZonasInputs>()
-    const [visibleEdit, setvisibleEdit] = useState(false)
     const [find, setFind] = useState('');
     const [confirm, setConfirm] = useState(false);
     const [idDelete, setidDelete] = useState< number | undefined >()
     const { stateAuth } = useAuthContext()
     const { zonasQuery } = useZonas(stateAuth.token || '');
-
+    const { getAllSucursales } = useSucursales(stateAuth.token!)
 
     const onChangeInput = (val: string) => {
-
         setFind(val)
     }
-
-    const onCloseModalDelete = ( event: boolean, id: number ) => {
-        setConfirm(event)
-        setidDelete(id)
-    }   
-
-    const replaceValues = (data: ZonasInputs) => {
-        setdataEdit({
-            ...data
-        })
-        setvisibleEdit(!visibleEdit)
-    }
-
 
     return (
 
@@ -73,7 +56,6 @@ export const TableZonas = () => {
                 <Table.Body 
                 className="divide-y"
                 >
-
                     {
                         zonasQuery.data?.filter((e) => e.nombre.toLocaleLowerCase().includes(find)).map(data => (
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={data.id}>
@@ -93,27 +75,13 @@ export const TableZonas = () => {
                                     {data?.tipo_moneda}
                                 </Table.Cell>
                                 <Table.Cell>
+                                    { getNameSucursalById( +data.sucursal_id ,getAllSucursales.data || [] ) }
                                     {data?.sucursal_id}
                                 </Table.Cell>
                                 <Table.Cell className='flex gap-3' >
                                     <DropdownOptionsZn 
                                         zona={ data }
                                         />
-                                    {/* <Button
-                                        color={'warning'}
-                                        // onClick={() => replaceValues(sucursal)}
-                                        className="font-semibold text-lg"
-                                    >
-                                        <FiEdit className="text-xl mx-1" />
-                                        Editar
-                                    </Button>
-                                    <Button
-                                        color={'failure'}
-                                        onClick={() => onCloseModalDelete(true, data.id)}
-                                    >
-                                        <RiDeleteBin5Line className="text-xl mx-1" />
-                                        Eliminar
-                                    </Button> */}
                                 </Table.Cell>
                             </Table.Row>
                         ))
@@ -121,7 +89,6 @@ export const TableZonas = () => {
 
                 </Table.Body>
             </Table>
-
             <ModalConfitmation
                 visible={ confirm }
                 message='Zona'

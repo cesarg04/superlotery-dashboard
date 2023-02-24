@@ -1,6 +1,8 @@
 import { Button } from "flowbite-react"
+import { useState } from "react"
 
 export const PublicarSorteos = () => {
+
   return (
     <div className="w-full">
     <div className="flex justify-between mb-4">
