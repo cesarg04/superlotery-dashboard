@@ -1,10 +1,21 @@
+import { FC ,useState } from 'react';
 import { Dropdown } from "flowbite-react"
 import { FiEdit } from "react-icons/fi"
 import { RiDeleteBin5Line } from "react-icons/ri"
 import { SiLetsencrypt } from "react-icons/si"
+import { ChangePass } from "../ChangePass"
+import { ModalConfitmation } from "../ModalConfitmation"
+import { Loterias } from '../../interfaces';
+
+interface Props {
+  loteria:  Loterias
+}
+
+export const DropdownOptionsLoteries:FC<Props> = ({ loteria }) => {
+
+  const [visibleDelete, setVisibleDelete] = useState(false);
 
 
-export const DropdownOptionsLoteries = () => {
   return (
     <>
     <Dropdown label="Opciones" color={'default'}>
@@ -16,7 +27,7 @@ export const DropdownOptionsLoteries = () => {
         </Dropdown.Item>
         <Dropdown.Item 
             icon={RiDeleteBin5Line}
-            // onClick={ () =>  setConfirmDelete(!confirmDelete) }
+            onClick={ () =>  setVisibleDelete(!visibleDelete) }
              >
             Eliminar
         </Dropdown.Item>
@@ -27,6 +38,14 @@ export const DropdownOptionsLoteries = () => {
             Cambiar contraseña
         </Dropdown.Item>
     </Dropdown>
+
+    <ModalConfitmation
+      visible={ visibleDelete }
+      onClose={ (val) => setVisibleDelete(val) }
+      message='loteria'
+      endpoint='loterias'
+      id={ loteria.id }
+    />
 
     </>
   )

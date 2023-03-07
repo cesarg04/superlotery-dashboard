@@ -32,6 +32,12 @@ export const SidebarComponent = () => {
                             </Sidebar.Item>
                             
                             </Link>
+                            <Link to={'/superadmin/combinaciones'} >
+                            <Sidebar.Item>
+                                Combinaciones
+                            </Sidebar.Item>
+                            
+                            </Link>
                         </Sidebar.Collapse>
 
                         <Link to={'/superadmin/sucursales'}>

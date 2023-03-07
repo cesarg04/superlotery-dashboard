@@ -64,7 +64,7 @@ export const TableLoterias = () => {
                                     <br />
                                 </Table.Cell>
                                 <Table.Cell>
-                                   <DropdownOptionsLoteries/>
+                                   <DropdownOptionsLoteries loteria={ loterie } />
                                 </Table.Cell>
                             </Table.Row>
                         ))

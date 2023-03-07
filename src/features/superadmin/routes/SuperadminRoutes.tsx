@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { Home, Loterias, Rutas, Sucursales, Vendedores, Zonas, PublicarSorteos } from "../pages"
 import { SuperadminLayout } from "../SuperadminLayout"
 import { PrivateRoute } from "./PrivateRoute"
+import { Combinaciones } from "../pages/Combinaciones"
 
 
 export const SuperadminRoutes = () => {
@@ -16,6 +17,7 @@ export const SuperadminRoutes = () => {
                     <Route path="rutas" element={ <Rutas/> } />
                     <Route path="vendedores" element={ <Vendedores/> } />
                     <Route path="publicar-sorteos" element={ <PublicarSorteos/> } />
+                    <Route path="combinaciones" element={ <Combinaciones/> } />
                     <Route path="/*" element={<Navigate to={'/superadmin'} />} />
                 </Route>
 

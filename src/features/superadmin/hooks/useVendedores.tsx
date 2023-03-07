@@ -5,6 +5,7 @@ import { Vendedores } from "../interfaces";
 export const getVendedores = async( token: string ) => {
     const { baseURL } = baseApI(token);
     const { data } = await baseURL.get<Vendedores[]>('vendedores');
+    console.log(data)
     return data;
 }
 

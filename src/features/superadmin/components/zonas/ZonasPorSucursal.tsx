@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useZonas } from '../../hooks/useZonas';
 import { useAuthContext } from '../../../../hooks/useContext';
-import { Modal, Table } from 'flowbite-react';
+import { Modal, Spinner, Table } from 'flowbite-react';
 
 
 interface Props {
@@ -14,6 +14,9 @@ export const ZonasPorSucursal: FC<Props> = ({ id, visible, onClose }) => {
     const { stateAuth } = useAuthContext()
     const { zonasForSucID } = useZonas(stateAuth.token!, id)
 
+    zonasForSucID.isLoading && <Spinner aria-label="Extra large spinner example"
+    size="xl"/>
+
     return (
         <Modal
             show={visible}
@@ -22,6 +25,7 @@ export const ZonasPorSucursal: FC<Props> = ({ id, visible, onClose }) => {
             onClose={() => onClose(!visible) }
 
         >
+
             <Modal.Header />
             <Modal.Body>
                 <div className="space-y-6 px-2 pb-4 sm:pb-2 lg:px-2 xl:pb-2">
@@ -29,6 +33,8 @@ export const ZonasPorSucursal: FC<Props> = ({ id, visible, onClose }) => {
                         Zonas de la sucursal
                     </h3>
 
+            {
+                zonasForSucID.data && 
                     <Table>
                         <Table.Head>
                             <Table.HeadCell>
@@ -59,6 +65,8 @@ export const ZonasPorSucursal: FC<Props> = ({ id, visible, onClose }) => {
                             }
                         </Table.Body>
                     </Table>
+            }
+
 
                 </div>
             </Modal.Body>

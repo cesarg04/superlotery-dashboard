@@ -5,11 +5,11 @@ import { useDeleteSettings } from "../hooks/useDeleteSettings";
 import { Toaster } from "react-hot-toast";
 
 interface Props {
-    visible: boolean;
-    onClose: (val: boolean) => void;
-    message: string;
-    endpoint: string;
-    id: number | undefined
+    visible:    boolean;
+    onClose:    (val: boolean) => void;
+    message:    string;
+    endpoint:   string;
+    id:         number | undefined
 }
 
 export const ModalConfitmation: FC<Props> = ({ visible, onClose, message, endpoint, id }) => {
