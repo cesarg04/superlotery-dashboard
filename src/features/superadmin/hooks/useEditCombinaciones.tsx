@@ -15,7 +15,7 @@ export const useEditCombinaciones = () => {
     const editCombMutation = useMutation({
         mutationFn: (data: CombinacionesInput) => {
 
-            return baseURL.put(`combinaciones`, data)
+            return baseURL.put('combinaciones', data)
         },
         onSuccess: () => {
             toast.success('Combinacion actualizada con exito', {

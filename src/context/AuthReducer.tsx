@@ -6,6 +6,7 @@ type Actions =
 | { type: 'refreshStatus', payload: { user: User, token: string | null}}
 | { type: 'changeLoadingStatus', payload: 'autenticated' | 'not-autenticated' | 'loading'}
 | { type: 'signOut' }
+| { type: 'setScreenMode', payload: 'light' | 'dark' }
 // | { type: 'username-put', payload: string }
 
 

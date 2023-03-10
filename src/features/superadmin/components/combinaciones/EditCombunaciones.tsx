@@ -1,6 +1,7 @@
 import { Button, Modal, Spinner, TextInput } from "flowbite-react"
 import { Combinaciones, CombinacionesInput } from "../../interfaces";
 import { useEditCombinaciones } from "../../hooks/useEditCombinaciones";
+import { FiEdit } from "react-icons/fi";
 
 interface Props {
     visible: boolean;
@@ -61,9 +62,11 @@ export const EditCombunaciones:React.FC<Props> = ({ visible, onClose, combinacio
                         size={'md'}
                         type="submit" >
                         {
-                            editCombMutation.isLoading && <Spinner className="mx-2" />
+                            editCombMutation.isLoading 
+                            ? <Spinner className="mx-2 text-xl  " />
+                            : <FiEdit className="text-xl mx-2" />
                         }
-                        Crear
+                        Editar
                     </Button>
                 </Modal.Footer>
             </form>

@@ -6,13 +6,21 @@ import { useMutation } from "@tanstack/react-query"
 import { baseApI } from "../../../api/apiSettings"
 import { toast } from "react-hot-toast"
 import { useVendedores } from "./useVendedores"
+import { useLoterias } from "./useLoterias"
+
+type LoteriaId = {
+    id: string
+}
 
 export const useAddVendedor = () => {
     const { stateAuth } = useAuthContext()
     const { zonasQuery }= useZonas(stateAuth.token!)
     const { vendedoresQuery } = useVendedores(stateAuth.token!)
+    const { getAllLoteries } = useLoterias(stateAuth.token!)
     const { baseURL } = baseApI(stateAuth.token)
     const { register, handleSubmit, formState: { errors }, reset } = useForm<VendedoresInpus>();
+
+
 
     const vendedorMutation = useMutation({
         mutationFn: ( vendedor: VendedoresInpus ) => {
@@ -35,9 +43,19 @@ export const useAddVendedor = () => {
     })
 
     const onSubmit:SubmitHandler<VendedoresInpus> = (data) => {
+
+        const loteriesArr:LoteriaId[] = []
+
+        data.loterias.forEach(loteria => {
+            loteriesArr.push({
+                id: loteria
+            })
+        })
+
         vendedorMutation.mutate({
             ...data,
-            role_id: 4
+            role_id: 4,
+            loterias: loteriesArr
         })
     }   
 
@@ -47,7 +65,8 @@ export const useAddVendedor = () => {
         handleSubmit,
         errors,
         onSubmit,
-        vendedorMutation
+        vendedorMutation,
+        getAllLoteries
     }
 
 }

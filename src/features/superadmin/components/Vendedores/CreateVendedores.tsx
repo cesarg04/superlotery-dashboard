@@ -1,4 +1,4 @@
-import { Button, Modal, Select, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, Modal, Select, TextInput } from "flowbite-react";
 import { FC } from "react";
 import { useAddVendedor } from "../../hooks/useAddVendedor";
 import { Toaster } from "react-hot-toast";
@@ -16,7 +16,8 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
         register,
         errors,
         handleSubmit,
-        onSubmit
+        onSubmit,
+        getAllLoteries
     } = useAddVendedor()
 
     const onCl = () => {
@@ -36,7 +37,7 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit(onSubmit)} >
-                        <div className="space-y-6 p-6 max-h-96 overflow-auto">
+                        <div className="space-y-10 p-6 max-h-96 overflow-auto">
 
                             <div className='flex flex-row gap-3'>
                                 <TextInput
@@ -174,6 +175,27 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                                 />
                             </div>
 
+
+                            <div className="flex gap-2" >
+                                {
+                                    getAllLoteries.data?.map(loteria => (
+                                        <div key={loteria.id} className='py-2' >
+                                    <Checkbox
+                                        id={loteria.id.toString()}
+                                        defaultChecked={ false }
+                                        className='mx-2'
+                                        value={loteria.id}
+                                        { ...register('loterias') }
+                                        />
+                                    <Label className='text-2xl' >
+                                        { loteria.nombre }
+                                    </Label>
+
+                                    </div>
+                                    ))
+                                }
+                            </div>
+
                             <div className="w-full flex place-content-center mt-20" >
                                 <Button
                                     style={{ fontWeight: 'bold', fontSize: 30 }}
@@ -187,9 +209,9 @@ export const CreateVendedores: FC<Props> = ({ visible, onClose }) => {
                         </div>
                     </form>
                 </Modal.Body>
-                <Modal.Footer>
-                    {/*  */}
-                </Modal.Footer>
+                {/* <Modal.Footer>
+                   
+                </Modal.Footer> */}
             </Modal>
 
             <Toaster/>

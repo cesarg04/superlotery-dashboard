@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, Checkbox, Label, Modal, Spinner, TextInput, ToggleSwitch } from "flowbite-react"
+import { Button, Checkbox, FileInput, Label, Modal, Spinner, TextInput, ToggleSwitch } from "flowbite-react"
 import { BsCalendarDate } from 'react-icons/bs';
 import { BiMoney } from 'react-icons/bi';
 import { useAddEditLoteries } from '../../hooks/useAddEditLoteries';
@@ -24,13 +24,13 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
         setAperturaSecuencial,
         cierreSecuencuial,
         setCierreSecuencuial,
-        indicadorCarga } = useAddEditLoteries()
+        indicadorCarga,
+        getAllCombinaciones } = useAddEditLoteries()
 
 
     const onClick = () => {
         onClose(!visible)
     }
-
 
 
     return (
@@ -52,11 +52,19 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
                                 required
                                 addon="Nombre"
                                 className='basis-2/4'
-                                {...register('loteria.nombre')} />
+                                {...register('nombre')} />
                             <TextInput
                                 required
                                 addon="Abreviatura"
-                                {...register('loteria.abreviatura')} />
+                                {...register('abreviatura')} />
+                              <FileInput
+                                id="file"
+                                size={1}
+                                sizing={20}
+                                accept=".gif,.jpg,.jpeg,.png"
+                                color={'success'}
+                                { ...register('logo') }
+                                />
                             <ToggleSwitch
                                 checked={statusLotery}
                                 label='Activo'
@@ -88,49 +96,49 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
                                 required
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.apertura_lunes')} />
+                                {...register('apertura_lunes')} />
 
                             <TextInput
                                 addon="Martes"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.apertura_martes')} />
+                                {...register('apertura_martes')} />
 
                             <TextInput
                                 addon="Miercoles"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.apertura_miercoles')} />
+                                {...register('apertura_miercoles')} />
 
                             <TextInput
                                 addon="Jueves"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.apertura_jueves')} />
+                                {...register('apertura_jueves')} />
 
                             <TextInput
                                 addon="Viernes"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.apertura_viernes')} />
+                                {...register('apertura_viernes')} />
 
                             <TextInput
                                 addon="Sabado"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.apertura_sabado')} />
+                                {...register('apertura_sabado')} />
 
                             <TextInput
                                 addon="Domingo"
                                 required={aperturaSecuencial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.apertura_domingo')} />
+                                {...register('apertura_domingo')} />
 
                         </div>
 
@@ -158,49 +166,49 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
                                 required
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.cierre_lunes')} />
+                                {...register('cierre_lunes')} />
 
                             <TextInput
                                 addon="Martes"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.cierre_martes')} />
+                                {...register('cierre_martes')} />
 
                             <TextInput
                                 addon="Miercoles"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-1/4'
-                                {...register('loteria.cierre_miercoles')} />
+                                {...register('cierre_miercoles')} />
 
                             <TextInput
                                 addon="Jueves"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.cierre_jueves')} />
+                                {...register('cierre_jueves')} />
 
                             <TextInput
                                 addon="Viernes"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.cierre_viernes')} />
+                                {...register('cierre_viernes')} />
 
                             <TextInput
                                 addon="Sabado"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.cierre_sabado')} />
+                                {...register('cierre_sabado')} />
 
                             <TextInput
                                 addon="Domingo"
                                 required={cierreSecuencuial ? false : true}
                                 type={'time'}
                                 className='basis-5/12'
-                                {...register('loteria.cierre_domingo')} />
+                                {...register('cierre_domingo')} />
 
                         </div>
 
@@ -213,95 +221,27 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
                         </div>
 
 
-                        <div className='flex flex-col'>
+                        <div className='flex gap-4 '>
+                             
+                            {
+                                getAllCombinaciones.data?.map(comb => (
+                                    <div key={comb.id} className='py-2' >
+                                    <Checkbox
+                                        id={comb.id.toString()}
+                                        defaultChecked={ false }
+                                        className='mx-2'
+                                        value={comb.id}
+                                        { ...register('combinaciones') }
+                                        />
+                                    <Label className='text-2xl' >
+                                        { comb.nombre }
+                                    </Label>
 
-                            <div className='grid grid-cols-4 gap-4 justify-between my-2' >
+                                    </div>
+                                ))
+                            }
 
-                                <div className='' >
-                                    <h3 className='text-xl' >Quinielas</h3>
-                                </div>
-
-                                <TextInput
-                                    required
-                                    addon="Primera"
-                                    type={'number'}
-                                    {...register('combinaciones.quiniela.primera')}
-                                />
-
-                                <TextInput
-                                    required
-                                    addon="Segunda"
-                                    type={'number'}
-                                    {...register('combinaciones.quiniela.segunda')}
-                                />
-
-                                <TextInput
-                                    required
-                                    addon="Tercera"
-                                    type={'number'}
-                                    {...register('combinaciones.quiniela.tercera')}
-                                />
-
-                            </div>
-
-                            <div className='grid grid-cols-4 gap-4 my-2' >
-
-                                <div className='basis-1/12' >
-                                    <h3 className='text-xl' >Pale</h3>
-                                </div>
-
-                                <TextInput
-                                    required
-                                    addon="Primera"
-                                    type={'number'}
-                                    {...register('combinaciones.pale.primera')}
-                                />
-
-                                <TextInput
-                                    required
-                                    addon="Segunda"
-                                    type={'number'}
-                                    {...register('combinaciones.pale.segunda')}
-                                />
-
-
-                            </div>
-
-                            <div className='grid grid-cols-4 gap-4 my-2' >
-
-                                <div className='basis-12' >
-                                    <h3 className='text-xl' >Tripleta</h3>
-                                </div>
-
-                                <TextInput
-                                    required
-                                    addon="Primera"
-                                    type={'number'}
-                                    {...register('combinaciones.tripleta.primera')}
-                                />
-
-                                <TextInput
-                                    required
-                                    addon="Segunda"
-                                    type={'number'}
-                                    {...register('combinaciones.tripleta.segunda')}
-                                />
-
-                            </div>
-
-                            <div className='grid grid-cols-4 gap-4 my-2' >
-
-                                <div className='basis-12' >
-                                    <h3 className='text-xl' >Superpale</h3>
-                                </div>
-
-                                <TextInput
-                                    required
-                                    addon="Primera"
-                                    type={'number'}
-                                    {...register('combinaciones.superpale.primera')}
-                                />
-                            </div>
+                          
 
                         </div>
 

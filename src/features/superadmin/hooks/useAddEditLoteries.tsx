@@ -1,20 +1,17 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {  LoteriasInp, LoteriesInputs } from '../interfaces';
+import {  LoteriesInputs } from '../interfaces';
 import { useMutation } from '@tanstack/react-query';
 import { baseApI } from '../../../api/apiSettings';
 import { useAuthContext } from '../../../hooks/useContext';
 import { useLoterias } from './useLoterias';
 import { useIsMutating } from "@tanstack/react-query";
+import { useCombinaciones } from './useCombinaciones';
 import { toast } from 'react-hot-toast';
 
-interface AguantePremios {
-    nombre:         string,
-    loteria_id:     number;
-    monto_primera?:  number; 
-    monto_segunda?:  number; 
-    monto_tercera?:  number; 
 
+type CombinaconId = {
+    id: number
 }
 
 export const useAddEditLoteries = () => {
@@ -24,95 +21,74 @@ export const useAddEditLoteries = () => {
     const [aperturaSecuencial, setAperturaSecuencial] = useState(true);
     const [cierreSecuencuial, setCierreSecuencuial] = useState(true);
     const { getAllLoteries } = useLoterias(stateAuth.token!)
+    const { getAllCombinaciones } = useCombinaciones(stateAuth.token!)
     const indicadorCarga = useIsMutating();
 
-    const { register, handleSubmit, watch, formState: { errors }, setError, reset } = useForm<LoteriasInp>();
+    const { register, handleSubmit, watch, formState: { errors }, setError, reset } = useForm<LoteriesInputs>();
 
     
-    const quinielas = useMutation({
-        mutationFn: (quiniela: AguantePremios) => {
-            return baseURL.post('combinaciones', quiniela)
-        },
-        onSuccess: () => {
-            reset()
-        }
-    })
-
+ 
     const agregarLoterias = useMutation({
-        mutationFn: ({loteria}: LoteriasInp) => {
+        mutationFn: (loteria: LoteriesInputs) => {
             return baseURL.post('loterias', loteria)
         },
         onSuccess: (data, variables, context) => {
-
-            const { id } = data.data
-
-            let arr: AguantePremios[] = [
-                {
-                    nombre: 'quinielas',
-                    loteria_id: id,
-                    monto_primera: variables.combinaciones.quiniela.primera,
-                    monto_segunda: variables.combinaciones.quiniela.segunda,
-                    monto_tercera: variables.combinaciones.quiniela.tercera
-                },
-                {
-                    nombre: 'pale',
-                    loteria_id: id,
-                    monto_primera: variables.combinaciones.pale.primera,
-                    monto_segunda: variables.combinaciones.pale.segunda,
-
-                },
-                {
-                    nombre: 'tripleta',
-                    loteria_id: id,
-                    monto_primera: variables.combinaciones.pale.primera,
-                    monto_segunda: variables.combinaciones.pale.segunda,
-                },
-                {
-                    nombre: 'superPale',
-                    loteria_id: id,
-                    monto_primera: variables.combinaciones.superpale.primera,
-                }
-
-            ]
-
-            arr.forEach( (lol) => {
-                quinielas.mutate(lol)
-                console.log(lol)
-            } )
-
-            toast.success('Loteria creada con exito', {
-                duration: 4000,
-                position: 'top-right'
+            toast.success('Loteria creada correctamente', {
+                position: 'top-right',
+                duration: 4000
             })
+            reset()
             getAllLoteries.refetch()
-
+        },
+        onError: ( error:any, variables ) => {
+            toast.error(`Error: ${ error.response.data.message }`)
         }
+
     })
 
 
 
-    const onSubmit: SubmitHandler<LoteriasInp> = async (data) => {
+    const onSubmit: SubmitHandler<LoteriesInputs> = async (loteria) => {
+
+        // const formData = new FormData()
+
+        // formData.append('logo', loteria.logo[0])
+
+        // const newLotery: LoteriesInputs = {
+        //     ...loteria
+        // }
+
+        const comb:CombinaconId[] = []
+
+        loteria.combinaciones.forEach(loteria => {
+            comb.push({
+                id: loteria
+            })
+        })
+
+        
 
         if (aperturaSecuencial) {
-            data.loteria.apertura_martes = data.loteria.apertura_lunes
-            data.loteria.apertura_miercoles = data.loteria.apertura_lunes
-            data.loteria.apertura_jueves = data.loteria.apertura_lunes
-            data.loteria.apertura_viernes = data.loteria.apertura_lunes
-            data.loteria.apertura_sabado = data.loteria.apertura_lunes
-            data.loteria.apertura_domingo = data.loteria.apertura_lunes
+            loteria.apertura_martes    = loteria.apertura_lunes
+            loteria.apertura_miercoles = loteria.apertura_lunes
+            loteria.apertura_jueves    = loteria.apertura_lunes
+            loteria.apertura_viernes   = loteria.apertura_lunes
+            loteria.apertura_sabado    = loteria.apertura_lunes
+            loteria.apertura_domingo   = loteria.apertura_lunes
         }
 
         if (cierreSecuencuial) {
-            data.loteria.cierre_martes = data.loteria.cierre_lunes
-            data.loteria.cierre_miercoles = data.loteria.cierre_lunes
-            data.loteria.cierre_jueves = data.loteria.cierre_lunes
-            data.loteria.cierre_viernes = data.loteria.cierre_lunes
-            data.loteria.cierre_sabado = data.loteria.cierre_lunes
-            data.loteria.cierre_domingo = data.loteria.cierre_lunes
+            loteria.cierre_martes      = loteria.cierre_lunes
+            loteria.cierre_miercoles   = loteria.cierre_lunes
+            loteria.cierre_jueves      = loteria.cierre_lunes
+            loteria.cierre_viernes     = loteria.cierre_lunes
+            loteria.cierre_sabado      = loteria.cierre_lunes
+            loteria.cierre_domingo     = loteria.cierre_lunes
 
         }
 
-        agregarLoterias.mutate(data)
+        // agregarLoterias.mutate(loteria)
+       agregarLoterias.mutate({...loteria, logo: loteria.logo[0], combinaciones: comb})
 
     }
 
@@ -129,6 +105,7 @@ export const useAddEditLoteries = () => {
         setAperturaSecuencial,
         cierreSecuencuial,
         setCierreSecuencuial,
-        indicadorCarga
+        indicadorCarga,
+        getAllCombinaciones
     }
 }

@@ -2,6 +2,7 @@ import { FC, createContext, useEffect, useReducer, useState } from 'react';
 import { LoginSuperadmin, Status, User } from '../features/auth/interfaces';
 import { baseApI } from '../api/apiSettings';
 import { AuthReducer } from './AuthReducer';
+import { useThemeMode, useTheme } from 'flowbite-react';
 
 interface Contextprops {
     stateAuth: AuthStateInterface;
@@ -13,31 +14,32 @@ interface Contextprops {
 export interface AuthStateInterface {
     user: User | undefined
     status: 'autenticated' | 'not-autenticated' | 'loading'
-    token: string | undefined
+    token: string | undefined,
+    screenStatusMode: 'light' | 'dark'
 }
 
 interface Props {
     children: JSX.Element | JSX.Element[]
 }
 
+
 export const AuthContext = createContext({} as Contextprops)
 
 export const AuthState: AuthStateInterface = {
     user: undefined,
     status: 'loading',
-    token: undefined
+    token: undefined,
+    screenStatusMode: 'light'
 }
-
-
+// const service = LocalStorageService
 
 export const AuthProvider: FC<Props> = ({ children }) => {
 
-    
     const { baseURL } = baseApI(AuthState.token!)
 
     const [stateAuth, dispatch] = useReducer(AuthReducer, AuthState)
-    
-
+    const theme = useTheme()
+    const [ mode, setmode, toggleMode ] =  useThemeMode(true)
 
     const statusUpdate = (data: Status) => {
 
@@ -56,7 +58,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }
 
     useEffect(() => {
-
+        
         const aute = async () => {
 
             try {
@@ -80,7 +82,6 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
 
     }, [])
-
 
     return (
         <AuthContext.Provider
