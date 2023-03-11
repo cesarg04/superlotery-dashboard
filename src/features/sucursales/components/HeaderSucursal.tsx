@@ -18,7 +18,7 @@ export const HeaderSucursal = () => {
                     SuperLotery
                 </span>
             </Navbar.Brand>
-            <div className="flex md:order-2">
+            <div className="flex md:order-2 gap-2">
                 <ChangeLanguage/>
 
                 <ChangeScreenMode/>

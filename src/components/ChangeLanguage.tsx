@@ -28,6 +28,8 @@ export const ChangeLanguage = () => {
             label={ nameLanguage(i18n.language) }
             // inline={true}
             color={'default'}
+            size={'sm'}
+            className="dark:text-white"
         >
             <Dropdown.Item
             onClick={() => i18n.changeLanguage('en')} >

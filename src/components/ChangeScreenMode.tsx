@@ -24,8 +24,8 @@ export const ChangeScreenMode = () => {
         ${mode === 'dark' ? 'text-white hover:bg-slate-400' : ''}`} >
             {
                 mode ===
-                    'dark' ? <MdOutlineDarkMode />
-                    : <MdOutlineLightMode />
+                'dark' ? <MdOutlineLightMode />
+                : <MdOutlineDarkMode />
             }
 
 

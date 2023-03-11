@@ -1,5 +1,12 @@
 {
-    "test": {
-        "hello": "hello word"
+    "vendedor": {
+        "home": {
+            "connected": "CONNECTED",
+            "tickets": "TICKETS",
+            "pending": "PENDING",
+            "nulls": "NULLS",
+            "winners": "WINNERS",
+            "losers": "LOSERS"
+        }
     }
 }

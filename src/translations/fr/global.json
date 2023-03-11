@@ -1,5 +1,12 @@
 {
-    "test": {
-        "hello": "Boun jour"
+    "vendedor": {
+        "home": {
+            "connected": "CONNECTÉ",
+            "tickets": "BILLETS",
+            "pending": "EN ATTENTE",
+            "nulls": "NULLS",
+            "winners": "GAGNANTS",
+            "losers": "PERDANTS"
+        }
     }
 }
