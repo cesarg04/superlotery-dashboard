@@ -7,6 +7,26 @@
             "nulls": "NULLS",
             "winners": "WINNERS",
             "losers": "LOSERS"
+        },
+        "resume_day": {
+            "sales": "SALES",
+            "comision": "COMMISSION",
+            "awards": "AWARDS",
+            "balance": "BALANCE"
+        }
+    },
+    "global": {
+        "lotery": {
+            "lotery_day": "RESULTS OF THE DAY",
+            "sales_day": "DAILY SALES",
+            "vendor": "Vendor",
+            "sales": "Sales",
+            "commission": "Aommission",
+            "awards": "Awards",
+            "result": "Result",
+            "commission_sup": "Commission Sup",
+            "total_result": "Total result"
+
         }
     }
 }

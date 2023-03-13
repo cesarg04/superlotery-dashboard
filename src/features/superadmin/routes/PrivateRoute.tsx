@@ -12,6 +12,8 @@ export const PrivateRoute = (props: any) => {
 
     switch (stateAuth.status) {
         case 'autenticated':
+            // if(stateAuth.user?.role_id != 1) 
+            //     return  <Navigate to={'/auth'} /> 
             return <Outlet/>
         
         case 'loading' :

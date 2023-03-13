@@ -1,6 +1,8 @@
-export const parseMoney = (mount: number = 0) => {
+export const parseMoney = (mount: number = 0, with_sign?: boolean) => {
 
     const formattedAmount = mount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-    return formattedAmount
+    (with_sign) 
+    ? `$ ${ formattedAmount }`
+    : formattedAmount
 }

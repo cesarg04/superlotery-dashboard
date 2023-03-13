@@ -17,9 +17,7 @@ p, span, h5{
 }
 
 .numbers{
-
     @apply bg-gray-500 rounded-full p-4 text-white text-xl
-
 }
 
 
@@ -31,7 +29,7 @@ p, span, h5{
 }
 
 .text-secondary-home{
-  @apply text-gray-400
+  @apply text-gray-500
 
 }
 

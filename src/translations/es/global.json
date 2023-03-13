@@ -7,6 +7,25 @@
             "nulls": "ANULADOS",
             "winners": "GANADORES",
             "losts": "PERDEDORES"
+        },
+        "resume_day": {
+            "sales": "VENTAS",
+            "comision": "COMISION",
+            "awards": "PREMIOS",
+            "balance": "BALANCE"
+        }
+    }, 
+    "global": {
+        "lotery": {
+            "lotery_day": "RESULTADOS DEL DIA",
+            "sales_day": "VENTAS DIARIAS",
+            "vendor": "Vendedor",
+            "sales": "Ventas",
+            "commission": "Comisión",
+            "awards": "Premios",
+            "result": "Resultado",
+            "commission_sup": "Comisión Supervisor",
+            "total_result": "Resultado total"
         }
     }
 }
