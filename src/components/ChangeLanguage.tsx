@@ -9,13 +9,15 @@ export const ChangeLanguage = () => {
     const nameLanguage = (key: string):string => {
         switch (key) {
             case 'en':
+                localStorage.setItem('languaje', 'en')
                 return 'English'
 
             case 'es':
-
+                localStorage.setItem('languaje', 'es')
                 return 'Español'
 
             case 'fr':
+                localStorage.setItem('languaje', 'fr')
                 return 'Francais'
 
             default:
@@ -32,7 +34,9 @@ export const ChangeLanguage = () => {
             className="dark:text-white"
         >
             <Dropdown.Item
-            onClick={() => i18n.changeLanguage('en')} >
+            onClick={() => i18n.changeLanguage('en')}
+            // icon={  }
+            >
                 English
             </Dropdown.Item>
             <Dropdown.Item

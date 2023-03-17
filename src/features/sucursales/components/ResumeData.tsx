@@ -12,7 +12,7 @@ export const ResumenDia = () => {
     return (
         <div className="w-6/12 border rounded-md px-4 py-5" >
 
-            <h2 className="text-xl font-bold text-gray-600 dark:text-gray-400 py-4" >Resumen del dia</h2>
+            <h2 className="text-xl font-bold text-gray-600 dark:text-gray-400 py-4" >{ t('global.lotery.summary_day').toUpperCase() }</h2>
 
             <div className="w-full grid grid-cols-2 grid-rows-2 gap-4" >
                 <CardChildrenResumen 

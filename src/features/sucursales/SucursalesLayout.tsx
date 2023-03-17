@@ -13,7 +13,7 @@ export const SucursalesLayout = () => {
   } 
 
   return (
-    <div className="container mx-auto dark:bg-dark h-screen" >
+    <div className="container mx-auto dark:bg-dark h-full" >
       <header className="pb-4 py-3 w-full">
         <HeaderSucursal />
       </header>

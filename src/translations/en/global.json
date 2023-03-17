@@ -13,6 +13,10 @@
             "comision": "COMMISSION",
             "awards": "AWARDS",
             "balance": "BALANCE"
+        },
+        "sellers": {
+            "sellers": "SELLERS",
+            "seller_list": "Seller list"
         }
     },
     "global": {
@@ -25,8 +29,16 @@
             "awards": "Awards",
             "result": "Result",
             "commission_sup": "Commission Sup",
-            "total_result": "Total result"
+            "total_result": "Total result",
+            "summary_day": "Summary of the day"
 
         }
+    },
+    "sellers": {
+        "portal_sellers": "PORTAL SELLERS",
+        "lotery": "Lotery",
+        "combination": "Combination",
+        "numbers": "Numbers",
+        "amount": "Amount"
     }
 }

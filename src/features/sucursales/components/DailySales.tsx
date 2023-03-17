@@ -1,10 +1,14 @@
-import { Button, Select, Table } from "flowbite-react"
+import { Button, Pagination, Select, Table } from "flowbite-react"
 import { useTranslation } from "react-i18next"
 import { FaSearch } from "react-icons/fa"
 
 export const DailySales = () => {
 
   const { t, i18n } = useTranslation('global');
+
+  const onPageChange = () => {
+
+  }
 
   return (
     <div className="border rounded-md h-96 mt-10 px-5 pt-5">
@@ -29,96 +33,93 @@ export const DailySales = () => {
             #
           </Table.HeadCell>
           <Table.HeadCell>
-              { t('global.lotery.vendor') }
+            {t('global.lotery.vendor')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.sales') }
+            {t('global.lotery.sales')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.commission') }
+            {t('global.lotery.commission')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.awards') }
+            {t('global.lotery.awards')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.result') }
+            {t('global.lotery.result')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.commission_sup') }
+            {t('global.lotery.commission_sup')}
           </Table.HeadCell>
           <Table.HeadCell>
-          { t('global.lotery.total_result') }
+            {t('global.lotery.total_result')}
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Apple MacBook Pro 17"
+              1
             </Table.Cell>
             <Table.Cell>
-              Sliver
+              Carlos
             </Table.Cell>
             <Table.Cell>
-              Laptop
+              RD $310.00
             </Table.Cell>
             <Table.Cell>
-              $2999
+              RD $ 18
             </Table.Cell>
             <Table.Cell>
-              <a
-                href="/tables"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-              >
-                Edit
-              </a>
+              RD $ 20
+            </Table.Cell>
+            <Table.Cell>
+              RD $ 20
+            </Table.Cell>
+            <Table.Cell>
+              RD $ 20
+            </Table.Cell>
+            <Table.Cell className="font-bold">
+              RD $ 20
             </Table.Cell>
           </Table.Row>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Microsoft Surface Pro
+          <Table.Row className="bg-gray-100 dark:border-gray-700 dark:bg-gray-800 font-bold ">
+            <Table.Cell className="whitespace-nowrap font-medium text-black dark:text-white">
+
             </Table.Cell>
             <Table.Cell>
-              White
+              Totales en RD
             </Table.Cell>
             <Table.Cell>
-              Laptop PC
+              RD $310.00
             </Table.Cell>
             <Table.Cell>
-              $1999
+              RD $ 18
             </Table.Cell>
             <Table.Cell>
-              <a
-                href="/tables"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-              >
-                Edit
-              </a>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              Magic Mouse 2
+              RD $ 20
             </Table.Cell>
             <Table.Cell>
-              Black
+              RD $ 20
             </Table.Cell>
             <Table.Cell>
-              Accessories
+              RD $ 20
             </Table.Cell>
-            <Table.Cell>
-              $99
-            </Table.Cell>
-            <Table.Cell>
-              <a
-                href="/tables"
-                className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-              >
-                Edit
-              </a>
+            <Table.Cell className="font-bold">
+              RD $ 20
             </Table.Cell>
           </Table.Row>
         </Table.Body>
+
+
       </Table>
+
+      <div className="w-full" >
+        {/* <Pagination
+          currentPage={29}
+          layout="navigation"
+          totalPages={100}
+          onPageChange={onPageChange}
+        /> */}
+      </div>
 
 
     </div>

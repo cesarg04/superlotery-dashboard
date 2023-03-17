@@ -3,6 +3,7 @@ import { LoginSuperadmin, Status, User } from '../features/auth/interfaces';
 import { baseApI } from '../api/apiSettings';
 import { AuthReducer } from './AuthReducer';
 import { useThemeMode, useTheme } from 'flowbite-react';
+import { LocalStorageService } from '../helpers/localStoregeType';
 
 interface Contextprops {
     stateAuth: AuthStateInterface;
@@ -37,9 +38,9 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
     const { baseURL } = baseApI(AuthState.token!)
 
-    const [stateAuth, dispatch] = useReducer(AuthReducer, AuthState)
-    const theme = useTheme()
-    const [ mode, setmode, toggleMode ] =  useThemeMode(true)
+    const [stateAuth, dispatch] = useReducer(AuthReducer, AuthState);
+    const theme = useTheme();
+    const [ mode, setmode, toggleMode ] =  useThemeMode(true);
 
     const statusUpdate = (data: Status) => {
 
@@ -58,7 +59,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }
 
     useEffect(() => {
-        
+        const { getItem } = LocalStorageService()
         const aute = async () => {
 
             try {
@@ -70,14 +71,21 @@ export const AuthProvider: FC<Props> = ({ children }) => {
                 })
                 dispatch({ type: 'refreshStatus', payload: {user: data, token: token} })
                 dispatch({ type: 'changeLoadingStatus', payload: 'autenticated' })
+                // console.clear()
+                console.log(token)
+                console.log(data)
 
             } catch (error) {
                 console.log(error);
                 dispatch({ type: 'changeLoadingStatus', payload: 'not-autenticated' })
+                console.clear()
             }
 
         }
+        // const theme = getItem<'dark' | 'light'>('theme')
+        // console.log(theme)
 
+        // setmode(theme)
         aute()
 
 

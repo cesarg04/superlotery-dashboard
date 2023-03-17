@@ -23,10 +23,11 @@ export const LoginPage = () => {
         try {
 
             statusUpdate({ status: 'loading' })
-            const { data } = await baseURL.post<LoginSuperadmin>('login', { ...loginData })
+            const { data } = await baseURL.post<LoginSuperadmin>('login', { ...loginData });
             console.log(data.user)
             signIn(data)
-            navigate('/superadmin')
+
+
         } catch (err: any) {
             // statusUpdate({})
             console.log(err);

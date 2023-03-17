@@ -13,6 +13,10 @@
             "comision": "COMISION",
             "awards": "PREMIOS",
             "balance": "BALANCE"
+        },
+        "sellers": {
+            "sellers": "VENDEDORES",
+            "seller_list": "Lista de vendedores"
         }
     }, 
     "global": {
@@ -25,7 +29,15 @@
             "awards": "Premios",
             "result": "Resultado",
             "commission_sup": "Comisión Supervisor",
-            "total_result": "Resultado total"
+            "total_result": "Resultado total",
+            "summary_day": "Resumen del dia"
         }
+    },
+    "sellers": {
+        "portal_sellers": "PORTAL DE VENTAS",
+        "lotery": "Loteria",
+        "combination": "Combinación",
+        "numbers": "Numeros",
+        "amount": "Monto"
     }
 }

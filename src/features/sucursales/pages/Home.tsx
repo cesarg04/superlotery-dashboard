@@ -19,8 +19,10 @@ export const Home = () => {
                 <ResumenDia />
                 <LoteryResultsViewer/>
             </div>
-
+            <div className="w-full" >
             <DailySales/>
+
+            </div>
 
         </div>
     )
