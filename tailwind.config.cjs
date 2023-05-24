@@ -18,8 +18,8 @@ module.exports = {
         dark: "#1F2937"
       },
       fontFamily:{
-        title: ['Nunito', 'sans-serif'],
-        content: ['Raleway', 'sans-serif']
+        // title: ['Nunito', 'sans-serif'],
+        // content: ['Raleway', 'sans-serif']
       }
     },
   },

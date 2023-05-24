@@ -39,6 +39,14 @@
         "lotery": "Lotery",
         "combination": "Combination",
         "numbers": "Numbers",
-        "amount": "Amount"
+        "amount": "Amount",
+        "type": "type",
+        "move": "move",
+        "select_option": "Please, select an option",
+        "select": "Select",
+        "select_lotery": "Select the lotery",
+        "edit": "Edit",
+        "duplicate": "Double",
+        "remove": "Remove"
     }
 }

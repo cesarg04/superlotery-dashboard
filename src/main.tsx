@@ -32,7 +32,7 @@ i18next.init({
 export const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <I18nextProvider i18n={i18next} >
     <QueryClientProvider client={client}>
       <AuthProvider>  
@@ -42,5 +42,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       {/* <RouterProvider router={router} /> */}
     </QueryClientProvider>
     </I18nextProvider>
-  </React.StrictMode>,
+  // {/* </React.StrictMode>, */}
 )

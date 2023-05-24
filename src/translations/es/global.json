@@ -38,6 +38,14 @@
         "lotery": "Loteria",
         "combination": "Combinación",
         "numbers": "Numeros",
-        "amount": "Monto"
+        "amount": "Monto",
+        "type": "Tipo",
+        "move": "jugada",
+        "select_option": "Por favor, seleccione una opción",
+        "select": "Seleccionar",
+        "select_lotery": "Seleccione la loteria",
+        "edit": "Editar",
+        "duplicate": "Dupliicar",
+        "remove": "Eliminar"
     }
 }

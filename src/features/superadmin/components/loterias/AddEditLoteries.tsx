@@ -45,8 +45,6 @@ export const AddLoteries: FC<Props> = ({ visible, onClose }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6 p-6 max-h-96 overflow-auto">
-
-
                         <div className='flex flex-row gap-3'>
                             <TextInput
                                 required

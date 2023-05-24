@@ -38,7 +38,15 @@
         "lotery": "Loterie",
         "combination": "Combinaison",
         "numbers": "Nombres",
-        "amount": "Montant"
+        "amount": "Montant",
+        "type": "taper",
+        "move": "déplacer",
+        "select_option": "Veuillez sélectionner une option",
+        "select": "Seleccionar",
+        "select_lotery": "Sélectionner la loterie",
+        "edit": "Éditeur", 
+        "duplicate": "Dupliquer", 
+        "delete": "Supprimer"
     }
         
 }

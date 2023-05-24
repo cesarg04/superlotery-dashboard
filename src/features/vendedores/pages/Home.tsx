@@ -6,6 +6,7 @@ import { useCombinaciones } from "../../superadmin/hooks/useCombinaciones";
 import { useJugadas } from "../hooks/useJugadas";
 import { useEffect } from "react";
 import { AddJugadas } from "../components/AddJugadas";
+import { TableJugadas } from "../components/TableJugadas";
 
 export const Home = () => {
 
@@ -15,10 +16,14 @@ export const Home = () => {
 
 
     return (
-        <div className="w-full h-screen" >
+        <div className="w-full h-screen">
 
             <h1 className="text-2xl text-gray-500 " >{t('sellers.portal_sellers')}</h1>
-            <AddJugadas/>
+
+            <div className="flex flex-col content-center justify-center items-center" >
+                <AddJugadas />
+                <TableJugadas />
+            </div>
         </div>
     )
 }

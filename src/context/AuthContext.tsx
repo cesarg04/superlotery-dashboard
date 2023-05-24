@@ -23,7 +23,6 @@ interface Props {
     children: JSX.Element | JSX.Element[]
 }
 
-
 export const AuthContext = createContext({} as Contextprops)
 
 export const AuthState: AuthStateInterface = {
