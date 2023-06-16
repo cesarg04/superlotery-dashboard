@@ -69,7 +69,7 @@ export const TableZonas = () => {
                                     {data?.provincia}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {parseMoney(Number(data.limites))}
+                                    {/* {parseMoney(Number(data.limites))} */}
                                 </Table.Cell>
                                 <Table.Cell>
                                     {data?.tipo_moneda}
